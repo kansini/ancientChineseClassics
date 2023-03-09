@@ -1,20 +1,15 @@
 <script setup lang="ts">
+import CustomCursor from "./components/kits/CustomCursor.vue"
 </script>
 
 <template>
-  <header>
-    <HelloWorld msg="HELLO WORLD"/>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </nav>
-  </header>
+  <custom-cursor/>
   <RouterView/>
 </template>
 
 <style lang="scss">
-*{
-  margin: 0;
-  padding: 0;
+#app {
+  background: url("./assets/img/main_bg.jpg") center;
+  background-size: 100%;
 }
 </style>
