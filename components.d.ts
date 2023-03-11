@@ -10,9 +10,9 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Book: typeof import('./src/components/Book.vue')['default']
+    BookSpine: typeof import('./src/components/BookSpine.vue')['default']
     ClickOutside: typeof import('./src/components/kits/ClickOutside.vue')['default']
     CustomCursor: typeof import('./src/components/kits/CustomCursor.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

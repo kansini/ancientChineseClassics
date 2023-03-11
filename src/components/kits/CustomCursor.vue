@@ -71,7 +71,7 @@ onMounted(() => {
     height: 48px;
     border-radius: 50%;
     background: rgba(255, 0, 0, .2);
-    background-blend-mode: color-dodge;
+    //mix-blend-mode: color-dodge;
   }
 
   .custom-cursor-inner {

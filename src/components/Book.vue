@@ -29,12 +29,12 @@ const booksData = ref<IBooksData>({
 })
 getBooksData(props.name).then((res) => booksData.value = res.data)
 
-const getVolNum = (index) => {
+const getVolNum = (index: number) => {
   if (index > 0 && index < 7) {
     return "上篇"
   } else if (index > 6 && index < 14) {
     return "中篇"
-  } else if (index > 13) {
+  } else {
     return "下篇"
   }
 }
@@ -43,8 +43,8 @@ const getVolNum = (index) => {
 <template>
   <div v-for="(article,index) in booksData.articles" class="article">
     <div class="title">
-      <div class="title-item">天工开物</div>
-      <div class="title-item">
+            <div class="title-item">{{ props.name }}</div>
+      <div class="title-item" v-if="index >0">
         {{ getVolNum(index) }}
       </div>
       <div class="title-item" v-if="index > 0">{{ NUM[index] }}</div>
@@ -64,8 +64,6 @@ const getVolNum = (index) => {
   padding: 8px 16px;
   display: flex;
   flex-direction: row-reverse;
-  width: 1360px;
-  margin: 8px auto;
 
   .title {
     display: flex;
@@ -110,7 +108,7 @@ const getVolNum = (index) => {
     background-size: 48px;
 
     .graph {
-      font-size: 16px;
+      font-size: 20px;
       writing-mode: vertical-rl;
       line-height: 48px;
       height: 480px;

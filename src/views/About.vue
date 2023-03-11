@@ -1,50 +1,38 @@
 <script setup lang="ts">
-import {ref, reactive} from "vue"
-import {getBooksData} from "@/api/getBooksData";
-
-interface IBooksData {
-  name: string
-  description: string
-  articles: Array<IArticlesData>
-}
-
-interface IArticlesData {
-  title: string
-  content: Array<string>
-}
-
-const props = defineProps({
-  name: {
-    type: String,
-    default: '山海经'
-  },
-  text: {
-    type: String,
-    default: 'click'
-  },
-  color: {
-    type: String,
-    default: 'rgba(255,0,0,.8)'
-  }
-})
-
-const booksData = ref<IBooksData>({
-  name: '',
-  description: '',
-  articles: []
-})
-getBooksData(props.name).then((res) => booksData.value = res.data)
+import Book from "../components/Book.vue"
 
 </script>
 
 <template>
-  <h1>{{ booksData.name }}</h1>
-  <h5>{{ booksData.description }}</h5>
-  <br>
-  <div v-for="(article,index) in booksData.articles" style="padding: 8px 0">
-    <h4>{{ index + 1 }}{{ article.title }}</h4>
-    <p v-for="p in article.content">
-      {{ p }}
-    </p>
+  <div class="home">
+    <div class="title"></div>
+    <div class="illustration"></div>
   </div>
+  <Book name="天工开物"/>
 </template>
+
+<style lang="scss" scoped>
+.home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  .title {
+    width: 64px;
+    height: 242px;
+    background: url("../assets/img/title.svg") no-repeat center;
+    background-size: cover;
+  }
+
+  .illustration {
+    width: 156px;
+    height: 242px;
+    background: url("../assets/img/illustration-cover.svg") no-repeat center right;
+    background-size: cover;
+  }
+
+}
+</style>
