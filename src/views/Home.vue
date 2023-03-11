@@ -23,6 +23,23 @@ const motionOption = reactive({
     scale: .5
   }
 })
+const titleMotionOption = reactive({
+  initial: {
+    opacity: 0,
+    scale: 10,
+    // y: -200
+  },
+  enter: {
+    opacity: 1,
+    scale: 1,
+    y: 0
+  },
+  leave: {
+    opacity: 0,
+    scale: 10,
+    // y: -200
+  }
+})
 
 interface IContents {
   title: string
@@ -54,15 +71,22 @@ getData()
   <loading :loading="loading"/>
   <custom-cursor :size="cursorSize"/>
   <div class="home">
-    <div class="title" @mouseenter="cursorSize = 'large'"
-         @mouseleave="cursorSize = ''"></div>
+    <div
+        class="title"
+        v-motion
+        :initial="titleMotionOption.initial"
+        :enter="titleMotionOption.enter"
+        :delay="1000"
+        @mouseenter="cursorSize = 'large'"
+        @mouseleave="cursorSize = ''"
+    ></div>
     <div class="book-shelf">
       <template v-for="(book,index) in booksData">
         <book-spine
             v-motion
             :initial="motionOption.initial"
             :enter="motionOption.enter"
-            :delay="80 * index"
+            :delay="500 + 80 * index"
             :title="book.title"
             :author="book.author"
             :dynasty="book.dynasty"
