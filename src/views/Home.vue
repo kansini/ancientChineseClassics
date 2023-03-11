@@ -64,10 +64,16 @@ const booksData = reactive([
 const router = useRouter()
 const cursorSize = ref('')
 const loading = ref(true)
-const getData = () => {
-  setTimeout(() => {
+const getData = async () => {
+  const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
+  try {
+    const loadedFont = await font.load();
+    document.fonts.add(loadedFont);
     loading.value = false
-  }, 4000)
+    // 执行其他操作
+  } catch (error) {
+    console.error('Font not loaded:', error);
+  }
 }
 getData()
 </script>
