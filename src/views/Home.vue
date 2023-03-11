@@ -1,76 +1,48 @@
 <script setup lang="ts">
 import BookSpine from "../components/BookSpine.vue"
 import Loading from "../components/kits/Loading.vue"
-import {reactive, ref} from "vue";
+import {ref, reactive} from "vue";
 import {useRouter} from "vue-router"
+import {areImagesLoaded} from "../utils/imgLoaded"
+import {getBooksData} from "../api/getBooksData"
 
-const booksData = reactive([
-  {
-    title: "天工开物",
-    author: "宋应星",
-    dynasty: "明"
+const motionOption = reactive({
+  initial: {
+    opacity: 0,
+    y: 240,
+    scale: .5
   },
-  {
-    title: "梦溪笔谈",
-    author: "沈阔",
-    dynasty: "宋"
+  enter: {
+    opacity: 1,
+    y: 0,
+    scale: 1
   },
-  {
-    title: "搜神记",
-    author: "干宝",
-    dynasty: "东晋"
-  },
-  {
-    title: "三十六计",
-    author: "张联甲",
-    dynasty: "南北朝"
-  },
-  {
-    title: "世说新语",
-    author: "刘义庆",
-    dynasty: "南朝"
-  },
-  {
-    title: "本草纲目",
-    author: "李时珍",
-    dynasty: "明"
-  },
-  {
-    title: "水经注",
-    author: "郦道元",
-    dynasty: "北魏"
-  },
-  {
-    title: "百战奇略",
-    author: "无名氏",
-    dynasty: "宋"
-  },
-  {
-    title: "菜根谭",
-    author: "洪应明",
-    dynasty: "明"
-  },
-  {
-    title: "文心雕龙",
-    author: "刘勰",
-    dynasty: "南朝"
-  },
-  {
-    title: "孙子兵法",
-    author: "孙武",
-    dynasty: "战国"
-  },
-])
+  leave: {
+    opacity: 0,
+    y: 240,
+    scale: .5
+  }
+})
+
+interface IContents {
+  title: string
+  author: string
+  dynasty: string
+}
+
+const booksData = ref<Array<IContents>>([])
 const router = useRouter()
 const cursorSize = ref('')
 const loading = ref(true)
+getBooksData('contents').then((res) => booksData.value = res.data)
 const getData = async () => {
   const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
   try {
     const loadedFont = await font.load();
     document.fonts.add(loadedFont);
-    loading.value = false
-    // 执行其他操作
+    setTimeout(() => {
+      loading.value = false
+    }, 500)
   } catch (error) {
     console.error('Font not loaded:', error);
   }
@@ -85,8 +57,12 @@ getData()
     <div class="title" @mouseenter="cursorSize = 'large'"
          @mouseleave="cursorSize = ''"></div>
     <div class="book-shelf">
-      <template v-for="book in booksData">
+      <template v-for="(book,index) in booksData">
         <book-spine
+            v-motion
+            :initial="motionOption.initial"
+            :enter="motionOption.enter"
+            :delay="80 * index"
             :title="book.title"
             :author="book.author"
             :dynasty="book.dynasty"
@@ -107,6 +83,7 @@ getData()
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
 
   .title {
     width: 344px;
