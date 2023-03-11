@@ -16,11 +16,6 @@ const motionOption = reactive({
     opacity: 1,
     y: 0,
     scale: 1
-  },
-  leave: {
-    opacity: 0,
-    y: 240,
-    scale: .5
   }
 })
 const titleMotionOption = reactive({
@@ -31,7 +26,7 @@ const titleMotionOption = reactive({
   },
   enter: {
     opacity: 1,
-    scale: 1,
+    scale: 0.8,
     y: 0
   },
   leave: {
@@ -72,11 +67,12 @@ getData()
   <custom-cursor :size="cursorSize"/>
   <div class="home">
     <div
+        v-if="!loading"
         class="title"
         v-motion
         :initial="titleMotionOption.initial"
         :enter="titleMotionOption.enter"
-        :delay="1000"
+        :delay="500"
         @mouseenter="cursorSize = 'large'"
         @mouseleave="cursorSize = ''"
     ></div>
@@ -86,7 +82,7 @@ getData()
             v-motion
             :initial="motionOption.initial"
             :enter="motionOption.enter"
-            :delay="500 + 80 * index"
+            :delay="80 * index"
             :title="book.title"
             :author="book.author"
             :dynasty="book.dynasty"
