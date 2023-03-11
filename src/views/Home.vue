@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BookSpine from "../components/BookSpine.vue"
-import {reactive} from "vue";
+import Loading from "../components/kits/Loading.vue"
+import {reactive, ref} from "vue";
 import {useRouter} from "vue-router"
 
 const booksData = reactive([
@@ -61,11 +62,22 @@ const booksData = reactive([
   },
 ])
 const router = useRouter()
+const cursorSize = ref('')
+const loading = ref(true)
+const getData = () => {
+  setTimeout(() => {
+    loading.value = false
+  }, 4000)
+}
+getData()
 </script>
 
 <template>
+  <loading :loading="loading"/>
+  <custom-cursor :size="cursorSize"/>
   <div class="home">
-    <div class="title"></div>
+    <div class="title" @mouseenter="cursorSize = 'large'"
+         @mouseleave="cursorSize = ''"></div>
     <div class="book-shelf">
       <template v-for="book in booksData">
         <book-spine
@@ -73,6 +85,8 @@ const router = useRouter()
             :author="book.author"
             :dynasty="book.dynasty"
             @click.native="router.push('about')"
+            @mouseenter="cursorSize = 'large'"
+            @mouseleave="cursorSize = ''"
         />
       </template>
     </div>

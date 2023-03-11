@@ -3,7 +3,6 @@ import CustomCursor from "./components/kits/CustomCursor.vue"
 </script>
 
 <template>
-  <custom-cursor/>
   <RouterView/>
 </template>
 

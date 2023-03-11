@@ -11,18 +11,19 @@ interface Props {
   color?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   size: '',
   text: 'click',
-  color: 'rgba(255,0,0,.8)'
+  color: 'rgba(255,0,0,1)'
 })
-const cursorInner = ref()
-const cursorOuter = ref()
+const cursorInner = ref(null)
+const cursorOuter = ref(null)
 const onMouseMove = (e: any) => {
+  const offset = props.size == '' ? 24 : 64
   // cursorInner.value.style.opacity = 1
   gsap.to(cursorOuter.value, 0.4, {
-    x: e.clientX - 24,
-    y: e.clientY - 24,
+    x: e.clientX - offset,
+    y: e.clientY - offset,
     opacity: 1
   })
   gsap.to(cursorInner.value, 0.1, {
@@ -46,7 +47,6 @@ onMounted(() => {
     ></div>
     <div ref="cursorInner"
          class="custom-cursor-inner"
-         :class="size == 'small' || size == 'large' ? 'hidden':''"
          :style="{background:color}"
     >
       {{ text }}
@@ -71,7 +71,7 @@ onMounted(() => {
     height: 48px;
     border-radius: 50%;
     background: rgba(255, 0, 0, .2);
-    //mix-blend-mode: color-dodge;
+    mix-blend-mode: color-burn;
   }
 
   .custom-cursor-inner {
@@ -83,8 +83,8 @@ onMounted(() => {
   }
 
   .cursor-large {
-    width: 160px;
-    height: 160px;
+    width: 128px;
+    height: 128px;
     background: rgba(255, 0, 0, .6);
     mix-blend-mode: color-burn;
   }

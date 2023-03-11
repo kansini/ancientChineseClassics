@@ -66,6 +66,7 @@ withDefaults(defineProps<IBookInfo>(), {
     align-items: flex-end;
     cursor: pointer;
     mix-blend-mode: difference;
+    //box-shadow: -1px 1px 0 1px rgba(255, 255, 255, 1), -2px 2px 0 1px rgba(0, 0, 0, 1), -3px 3px 0 1px rgba(255, 255, 255, 1), -4px 4px 0 1px rgba(255, 255, 255, 1), -5px 5px 0 1px rgba(0, 0, 0, 1), -6px 6px 0 1px rgba(255, 255, 255, 1), -7px 7px 0 1px rgba(255, 255, 255, 1), -8px 8px 0 1px rgba(0, 0, 0, 1), -9px 9px 0 1px rgba(255, 255, 255, 1);
 
     .book-spine-name {
       transform: scale(1.2);
