@@ -4,7 +4,7 @@ import {ref, defineEmits} from "vue";
 
 interface ILoading {
   loading: boolean
-  percent: number
+  percent?: number
 }
 
 withDefaults(defineProps<ILoading>(), {
@@ -24,7 +24,7 @@ const handleEnter = () => {
       <div class="loading-title"></div>
       <ani name="loading-brochure" width="160px" height="160px"/>
       <transition name="slideIn">
-        <div class="btn-enter" @click="handleEnter" v-if="!loading">
+        <div class="btn-enter" @click="handleEnter" v-show="!loading">
           <div class="btn-enter-inner">
             <div>开卷</div>
             <div>有益</div>
@@ -72,20 +72,28 @@ const handleEnter = () => {
     .btn-enter-inner {
       height: 24px;
       overflow: hidden;
-      transition: transform ease .2s;
-
     }
 
     div {
-      transition: transform ease .3s;
+      transform: skewY(0deg);
+      transition: transform ease .6s;
+
+      &:nth-child(2) {
+        transform: translate3d(0, 12px, 0) skewY(40deg);
+      }
     }
 
     &:hover {
-      background: rgba(255, 255, 255, .2);
+      background: rgba(255, 255, 255, .3);
+      //border: 1px solid rgba(255, 255, 255, 0);
 
       .btn-enter-inner {
         div {
-          transform: perspective(100px) translate3d(0, -22px, 10px);
+          transform: perspective(100px) translate3d(0, -24px, 0) skewY(0deg);
+
+          &:nth-child(1) {
+            transform: perspective(100px) translate3d(0, -40px, 0) skewX(-40deg);
+          }
         }
       }
     }

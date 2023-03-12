@@ -54,7 +54,7 @@ const getData = async () => {
     document.fonts.add(loadedFont);
     setTimeout(() => {
       loading.value = false
-    }, 500)
+    }, 3000)
   } catch (error) {
     console.error('Font not loaded:', error);
   }

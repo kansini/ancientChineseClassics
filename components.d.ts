@@ -15,7 +15,6 @@ declare module '@vue/runtime-core' {
     ClickOutside: typeof import('./src/components/kits/ClickOutside.vue')['default']
     CustomCursor: typeof import('./src/components/kits/CustomCursor.vue')['default']
     Loading: typeof import('./src/components/kits/Loading.vue')['default']
-    LoadingProgress: typeof import('./src/components/kits/LoadingProgress.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
