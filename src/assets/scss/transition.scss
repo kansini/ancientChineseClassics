@@ -1,39 +1,102 @@
+.slideIn-enter-active,
+.slideIn-enter-active-leave-active {
+  transition: all ease-in-out .6s;
+}
+
+.slideIn-enter-from,
+.slideIn-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 0);
+}
+
+.fadeLeft-enter-active,
+.fadeLeft-leave-active,
+.fadeRight-enter-active,
+.fadeRight-leave-active,
+.fadeDown-enter-active,
+.fadeDown-leave-active{
+  transition: opacity .4s ease, transform .2s ease, filter .2s ease-in;
+}
+
+.fadeRight-enter-from,
+.fadeRight-leave-to {
+  transform: translate(50%, 0);
+  opacity: 0;
+}
+
+.fadeLeft-enter-from,
+.fadeLeft-leave-to {
+  transform: translate(-50%, 0);
+  opacity: 0;
+}
+
+.fadeDown-enter-from,
+.fadeDown-leave-to {
+  transform: translate(0, -50%);
+  opacity: 0;
+  filter: blur(8px);
+}
+.scaleIn-enter-active,
+.scaleIn-leave-active{
+  transition: opacity .4s ease, transform .5s ease;
+}
+
+.scaleIn-enter-from,
+.scaleIn-leave-to {
+  transform: scale(0);
+  opacity: 0;
+}
+
 .fadeIn-enter-active,
-.fadeIn-leave-active {
+.fadeIn-leave {
+  transition: all ease .6s;
+}
+
+.fadeIn-leave-active,
+.fadeIn-enter {
   transition: all ease .4s;
-}
-
-
-.fadeIn-enter,
-.fadeIn-leave-active {
   opacity: 0;
-  overflow: hidden;
 }
 
-.slideIn-enter-active {
-  transition: all ease .3s;
-}
-
-.slideIn-leave-active {
-  transition: all ease .2s;
-}
-
-.slideIn-enter,
-.slideIn-leave-active {
+.slideUp-leave-active,
+.slideUp-enter {
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateY(400%);
+  perspective: 100px;
 }
 
-.slideUp-enter-active {
-  transition: all ease .5s;
-}
-
-.slideUp-leave-active {
-  transition: all ease .5s;
-}
-
-.slideUp-enter,
-.slideUp-leave-active {
+.slide-down-leave-active,
+.slide-down-enter {
   opacity: 0;
-  transform: translate(0, -100%);
+  transform: translateY(-200%);
+  perspective: 100px;
+}
+
+.slide-right-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translateX(200%);
+  perspective: 100px;
+}
+
+.slide-left-leave-active,
+.slide-left-enter {
+  opacity: 0;
+  transform: translateX(-200%);
+  perspective: 100px;
+}
+
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: all ease-in-out .1s;
+
+
+}
+
+.slide-in-leave-active,
+.slide-in-enter {
+  transition: all ease-in-out .2s;
+  opacity: 0;
+  transform: scale(0);
+
 }

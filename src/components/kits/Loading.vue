@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Ani from "./Ani.vue";
-import {ref, defineEmits} from "vue";
+import {ref, reactive} from "vue";
 
 interface ILoading {
   loading: boolean
@@ -17,20 +17,36 @@ const handleEnter = () => {
   loaded.value = true
   emit('enter')
 }
+const motionOption = reactive({
+  initial: {
+    opacity: 0,
+    // y: 240,
+    scale: 0
+  },
+  enter: {
+    opacity: 1,
+    // y: 0,
+    scale: 1
+  }
+})
 </script>
 <template>
   <transition name="slideUp">
     <div class="loading-container" v-if="!loaded">
       <div class="loading-title"></div>
       <ani name="loading-brochure" width="160px" height="160px"/>
-      <transition name="slideIn">
-        <div class="btn-enter" @click="handleEnter" v-show="!loading">
-          <div class="btn-enter-inner">
-            <div>开卷</div>
-            <div>有益</div>
-          </div>
+      <div class="btn-enter"
+           v-motion
+           :initial="motionOption.initial"
+           :enter="motionOption.enter"
+           @click="handleEnter"
+           v-if="!loading">
+        <div class="btn-enter-inner">
+          <div>开卷</div>
+          <div>有益</div>
         </div>
-      </transition>
+      </div>
+      <div style="width: 90px;height: 42px" v-else></div>
     </div>
   </transition>
 </template>
@@ -49,6 +65,7 @@ const handleEnter = () => {
   left: 0;
   top: 0;
   z-index: 999;
+
 
   .loading-title {
     width: 230px;
@@ -84,7 +101,7 @@ const handleEnter = () => {
     }
 
     &:hover {
-      background: rgba(255, 255, 255, .3);
+      background: rgba(255, 255, 255, .2);
       //border: 1px solid rgba(255, 255, 255, 0);
 
       .btn-enter-inner {

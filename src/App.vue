@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CustomCursor from "./components/kits/CustomCursor.vue"
 </script>
 
 <template>

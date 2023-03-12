@@ -41,6 +41,7 @@ interface IContents {
   author: string
   dynasty: string
 }
+
 const loaded = ref(false)
 const booksData = ref<Array<IContents>>([])
 const router = useRouter()
@@ -63,34 +64,36 @@ getData()
 </script>
 
 <template>
-  <loading :loading="loading" @enter="loaded = true"/>
-  <custom-cursor :size="cursorSize"/>
-  <div class="home">
-    <div
-        v-if="loaded"
-        class="title"
-        v-motion
-        :initial="titleMotionOption.initial"
-        :enter="titleMotionOption.enter"
-        :delay="500"
-        @mouseenter="cursorSize = 'large'"
-        @mouseleave="cursorSize = ''"
-    ></div>
-    <div class="book-shelf" v-if="loaded">
-      <template v-for="(book,index) in booksData">
-        <book-spine
-            v-motion
-            :initial="motionOption.initial"
-            :enter="motionOption.enter"
-            :delay="80 * index"
-            :title="book.title"
-            :author="book.author"
-            :dynasty="book.dynasty"
-            @click.native="router.push('about')"
-            @mouseenter="cursorSize = 'large'"
-            @mouseleave="cursorSize = ''"
-        />
-      </template>
+  <div>
+    <loading :loading="loading" @enter="loaded = true"/>
+    <custom-cursor :size="cursorSize"/>
+    <div class="home">
+      <div
+          v-if="loaded"
+          class="title"
+          v-motion
+          :initial="titleMotionOption.initial"
+          :enter="titleMotionOption.enter"
+          :delay="500"
+          @mouseenter="cursorSize = 'large'"
+          @mouseleave="cursorSize = ''"
+      ></div>
+      <div class="book-shelf" v-if="loaded">
+        <template v-for="(book,index) in booksData">
+          <book-spine
+              v-motion
+              :initial="motionOption.initial"
+              :enter="motionOption.enter"
+              :delay="80 * index"
+              :title="book.title"
+              :author="book.author"
+              :dynasty="book.dynasty"
+              @click.native="router.push('about')"
+              @mouseenter="cursorSize = 'large'"
+              @mouseleave="cursorSize = ''"
+          />
+        </template>
+      </div>
     </div>
   </div>
 </template>
