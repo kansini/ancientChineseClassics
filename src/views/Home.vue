@@ -41,7 +41,7 @@ interface IContents {
   author: string
   dynasty: string
 }
-
+const loaded = ref(false)
 const booksData = ref<Array<IContents>>([])
 const router = useRouter()
 const cursorSize = ref('')
@@ -63,11 +63,11 @@ getData()
 </script>
 
 <template>
-  <loading :loading="loading"/>
+  <loading :loading="loading" @enter="loaded = true"/>
   <custom-cursor :size="cursorSize"/>
   <div class="home">
     <div
-        v-if="!loading"
+        v-if="loaded"
         class="title"
         v-motion
         :initial="titleMotionOption.initial"
@@ -76,7 +76,7 @@ getData()
         @mouseenter="cursorSize = 'large'"
         @mouseleave="cursorSize = ''"
     ></div>
-    <div class="book-shelf">
+    <div class="book-shelf" v-if="loaded">
       <template v-for="(book,index) in booksData">
         <book-spine
             v-motion
