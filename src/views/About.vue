@@ -21,7 +21,10 @@ const cursorSize = ref('')
 </script>
 
 <template>
-  <custom-cursor :size="cursorSize"/>
+  <custom-cursor
+      :size="cursorSize"
+      text="中国典籍·天工开物·中国典籍·天工开物·"
+  />
   <div class="article"
        v-motion
        :initial="motionOption.initial"

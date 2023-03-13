@@ -43,7 +43,7 @@ const getVolNum = (index: number) => {
 <template>
   <div v-for="(article,index) in booksData.articles" class="article">
     <div class="title">
-            <div class="title-item">{{ props.name }}</div>
+      <div class="title-item">{{ props.name }}</div>
       <div class="title-item" v-if="index >0">
         {{ getVolNum(index) }}
       </div>

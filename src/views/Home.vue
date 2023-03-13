@@ -46,6 +46,7 @@ const loaded = ref(false)
 const booksData = ref<Array<IContents>>([])
 const router = useRouter()
 const cursorSize = ref('')
+const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
 const loading = ref(true)
 getBooksData('contents').then((res) => booksData.value = res.data)
 const getData = async () => {
@@ -61,12 +62,20 @@ const getData = async () => {
   }
 }
 getData()
+
+const handleMouseEnter = (text) => {
+  cursorSize.value = "large"
+  cursorText.value = `·中国典籍·${text}·中国典籍·${text}`
+}
 </script>
 
 <template>
   <div>
     <loading :loading="loading" @enter="loaded = true"/>
-    <custom-cursor :size="cursorSize"/>
+    <custom-cursor
+        :size="cursorSize"
+        :text="cursorText"
+    />
     <div class="home">
       <div
           v-if="loaded"
@@ -75,7 +84,7 @@ getData()
           :initial="titleMotionOption.initial"
           :enter="titleMotionOption.enter"
           :delay="500"
-          @mouseenter="cursorSize = 'large'"
+          @mouseenter="cursorSize = 'large';cursorText='中国典籍·The Ancient Chinese Classics·'"
           @mouseleave="cursorSize = ''"
       ></div>
       <div class="book-shelf" v-if="loaded">
@@ -89,7 +98,7 @@ getData()
               :author="book.author"
               :dynasty="book.dynasty"
               @click.native="router.push('about')"
-              @mouseenter="cursorSize = 'large'"
+              @mouseenter="handleMouseEnter(book.title)"
               @mouseleave="cursorSize = ''"
           />
         </template>
