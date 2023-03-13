@@ -63,7 +63,7 @@ const getData = async () => {
 }
 getData()
 
-const handleMouseEnter = (text) => {
+const handleMouseEnter = (text: string) => {
   cursorSize.value = "large"
   cursorText.value = `·中国典籍·${text}·中国典籍·${text}`
 }
