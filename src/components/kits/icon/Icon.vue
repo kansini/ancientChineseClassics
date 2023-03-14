@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import "//at.alicdn.com/t/c/font_3951271_v5m17k77vj.js"
+import "./iconfont.js"
 
 export default {
   name: "AccIcon",
@@ -23,5 +23,11 @@ export default {
   width: 1.4em;
   height: 1.4em;
   font-size: 14px;
+  opacity: .6;
+  transition: opacity ease-in-out .4s;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 </style>

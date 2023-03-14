@@ -66,16 +66,15 @@ const handleMouseEnter = (text: string) => {
         :text="cursorText"
     />
     <div class="home">
-      <div
-          v-if="loaded"
-          class="title"
-          v-motion
-          :initial="titleMotionOption.initial"
-          :enter="titleMotionOption.enter"
-          :delay="500"
-          @mouseenter="cursorSize = 'large';cursorText='中国典籍·the ancient Chinese classics·'"
-          @mouseleave="cursorSize = ''"
-      ></div>
+      <div v-if="loaded"
+           class="title"
+           v-motion
+           :initial="titleMotionOption.initial"
+           :enter="titleMotionOption.enter"
+           :delay="500"
+      >
+
+      </div>
       <book-shelf
           v-if="loaded"
           @mouseenter="handleMouseEnter"

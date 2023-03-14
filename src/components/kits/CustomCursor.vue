@@ -8,18 +8,19 @@ gsap.registerPlugin(ScrollToPlugin)
 interface Props {
   size?: string
   text?: string
+  innerText?: string
   color?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   size: '',
   text: '中国典籍·The Ancient Chinese Classics·',
-  color: 'rgba(255,0,0,1)'
+  innerText: "开卷"
 })
 const cursorInner = ref(null)
 const cursorOuter = ref(null)
 const onMouseMove = (e: any) => {
-  const offset = props.size == '' ? 24 : 72
+  const offset = props.size == '' ? 24 : 56
   // cursorInner.value.style.opacity = 1
   gsap.to(cursorOuter.value, 0.4, {
     x: e.clientX - offset,
@@ -52,9 +53,10 @@ onMounted(() => {
         </text>
       </svg>
     </div>
-    <div ref="cursorInner"
-         class="custom-cursor-inner"
-         :style="{background:color}"
+    <div
+        ref="cursorInner"
+        class="custom-cursor-inner"
+        :data-text="innerText"
     >
     </div>
   </div>
@@ -77,17 +79,30 @@ onMounted(() => {
     background: rgba(255, 0, 0, .5);
     will-change: transform;
     opacity: 0;
-    //mix-blend-mode: color-burn;
+    mix-blend-mode: color-burn;
+    font-family: "carved";
   }
 
   .custom-cursor-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 8px;
     height: 8px;
-    background: rgba(255, 0, 0, .85);
     border-radius: 50%;
+    background: rgba(227, 0, 0, .6);
     color: rgba(0, 0, 0, 0);
     will-change: transform;
     opacity: 0;
+    font-family: "carved";
+    font-size: 14px;
+    transition: width ease .6s, height ease .6s, color ease .4s;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &::before {
+      content: attr(data-text);
+    }
   }
 
   .cursor-large {
@@ -98,16 +113,23 @@ onMounted(() => {
     width: 144px;
     height: 144px;
     background: rgba(255, 255, 255, .1);
-    backdrop-filter:blur(4px);
+    backdrop-filter: blur(4px);
     transition: width ease-in-out .3s, height ease-in-out .3s;
-    //mix-blend-mode: color-burn;
+
+    & + .custom-cursor-inner {
+      background: $acc-red;
+      width: 40px;
+      height: 40px;
+      padding: 4px;
+      color: rgba(255, 255, 255, 1);
+    }
 
     svg {
       text {
         animation: rotation 10s linear infinite;
         transform-origin: 50%;
         font-family: "carved";
-        fill:$acc-blue;
+        fill: $acc-blue;
         //letter-spacing: 6px;
         font-size: 20px;
       }

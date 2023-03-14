@@ -2,8 +2,9 @@
 import Detail from "../../components/Detail.vue"
 import {reactive, ref} from "vue";
 import TopMenu from "./TopMenu.vue"
-import {useWindowScroll} from '@vueuse/core'
+import {useWindowScroll, useFullscreen} from '@vueuse/core'
 
+const {isFullscreen, enter, exit, toggle} = useFullscreen()
 const {x, y} = useWindowScroll()
 const motionOption = reactive({
   initial: {
@@ -24,21 +25,20 @@ const cursorSize = ref('')
 </script>
 
 <template>
-  <custom-cursor
-      :size="cursorSize"
-      text="中国典籍·天工开物·中国典籍·天工开物·"
+  <custom-cursor :size="cursorSize"/>
+  <top-menu
+      :is-over="y > 0"
+      @toggle="toggle"
   />
-  <top-menu :is-over="y > 200"/>
   <div class="cover"
        v-motion
        :initial="motionOption.initial"
        :enter="motionOption.enter"
   >
-    <div class="title" @mouseenter="cursorSize = 'large'" @mouseleave="cursorSize = ''"></div>
-    <div class="illustration" @mouseenter="cursorSize = 'large'" @mouseleave="cursorSize = ''"></div>
+    <div class="title"></div>
+    <div class="illustration"></div>
   </div>
   <detail name="天工开物"/>
-
 </template>
 
 <style lang="scss" scoped>

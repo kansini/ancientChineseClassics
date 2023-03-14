@@ -17,6 +17,7 @@ defineProps({
     default: false
   }
 })
+const emit = defineEmits(['toggle'])
 const menuData = reactive<Array<IMenu>>([
   {
     name: "首页",
@@ -42,8 +43,8 @@ const menuData = reactive<Array<IMenu>>([
   {
     name: "全屏",
     icon: "fullscreen",
-    method: (name: string) => {
-      console.log(name)
+    method: () => {
+      emit('toggle')
     }
   }
 ])
@@ -66,7 +67,7 @@ const menuData = reactive<Array<IMenu>>([
   left: 0;
   top: 0;
   width: 100%;
-  height: 40px;
+  height: 48px;
   background: rgba(255, 255, 255, 0);
   font-family: "carved";
   font-size: 12px;
