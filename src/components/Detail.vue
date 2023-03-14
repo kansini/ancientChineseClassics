@@ -55,7 +55,6 @@ const getVolNum = (index: number) => {
         {{ p }}
       </div>
     </div>
-
   </div>
 </template>
 <style lang="scss" scoped>

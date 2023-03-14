@@ -67,9 +67,7 @@ onMounted(() => {
     top: 0;
     left: 0;
     z-index: 9999;
-    opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s ease;
   }
 
   .custom-cursor-outer {
@@ -77,6 +75,8 @@ onMounted(() => {
     height: 48px;
     border-radius: 50%;
     background: rgba(255, 0, 0, .5);
+    will-change: transform;
+    opacity: 0;
     //mix-blend-mode: color-burn;
   }
 
@@ -86,6 +86,8 @@ onMounted(() => {
     background: rgba(255, 0, 0, .85);
     border-radius: 50%;
     color: rgba(0, 0, 0, 0);
+    will-change: transform;
+    opacity: 0;
   }
 
   .cursor-large {
@@ -95,8 +97,9 @@ onMounted(() => {
     padding: 8px;
     width: 144px;
     height: 144px;
-    background: rgba(255, 255, 255, .2);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter:blur(4px);
+    transition: width ease-in-out .3s, height ease-in-out .3s;
     //mix-blend-mode: color-burn;
 
     svg {
@@ -104,6 +107,7 @@ onMounted(() => {
         animation: rotation 10s linear infinite;
         transform-origin: 50%;
         font-family: "carved";
+        fill:$acc-blue;
         //letter-spacing: 6px;
         font-size: 20px;
       }

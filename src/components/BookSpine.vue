@@ -23,10 +23,11 @@ withDefaults(defineProps<IBookInfo>(), {
 </template>
 <style lang="scss" scoped>
 .book-spine {
+  position: relative;
   width: 72px;
   height: 400px;
-  background: #00182f;
-  border-radius: 12px;
+  background: $acc-blue;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,6 +35,7 @@ withDefaults(defineProps<IBookInfo>(), {
   transition: all ease .6s;
   mix-blend-mode: color-burn;
   font-family: "carved";
+  overflow: hidden;
 
   .book-spine-title {
     display: flex;
@@ -62,11 +64,23 @@ withDefaults(defineProps<IBookInfo>(), {
 
   &:hover {
     width: 280px;
-    padding: 0 40px;
-    align-items: flex-end;
+    padding: 0 32px;
+    align-items: flex-start;
     cursor: pointer;
     mix-blend-mode: difference;
+    border-radius: 8px 12px 12px 8px;
     //box-shadow: -1px 1px 0 1px rgba(255, 255, 255, 1), -2px 2px 0 1px rgba(0, 0, 0, 1), -3px 3px 0 1px rgba(255, 255, 255, 1), -4px 4px 0 1px rgba(255, 255, 255, 1), -5px 5px 0 1px rgba(0, 0, 0, 1), -6px 6px 0 1px rgba(255, 255, 255, 1), -7px 7px 0 1px rgba(255, 255, 255, 1), -8px 8px 0 1px rgba(0, 0, 0, 1), -9px 9px 0 1px rgba(255, 255, 255, 1);
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      right: 0;
+      width: 32px;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 2px, transparent 2px);
+      background-size: 40px 80px;
+      border-left: 3px solid #000;
+    }
 
     .book-spine-name {
       transform: scale(1.2);

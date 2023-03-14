@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import BookSpine from "../components/BookSpine.vue"
+import BookShelf from "../components/BookShelf.vue"
 import Loading from "../components/kits/Loading.vue"
 import {ref, reactive} from "vue";
-import {useRouter} from "vue-router"
 import {areImagesLoaded} from "../utils/imgLoaded"
-import {getBooksData} from "../api/getBooksData"
 
 const motionOption = reactive({
   initial: {
@@ -36,19 +34,10 @@ const titleMotionOption = reactive({
   }
 })
 
-interface IContents {
-  title: string
-  author: string
-  dynasty: string
-}
-
 const loaded = ref(false)
-const booksData = ref<Array<IContents>>([])
-const router = useRouter()
 const cursorSize = ref('')
 const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
 const loading = ref(true)
-getBooksData('contents').then((res) => booksData.value = res.data)
 const getData = async () => {
   const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
   try {
@@ -56,7 +45,7 @@ const getData = async () => {
     document.fonts.add(loadedFont);
     setTimeout(() => {
       loading.value = false
-    }, 3000)
+    })
   } catch (error) {
     console.error('Font not loaded:', error);
   }
@@ -84,25 +73,14 @@ const handleMouseEnter = (text: string) => {
           :initial="titleMotionOption.initial"
           :enter="titleMotionOption.enter"
           :delay="500"
-          @mouseenter="cursorSize = 'large';cursorText='中国典籍·The Ancient Chinese Classics·'"
+          @mouseenter="cursorSize = 'large';cursorText='中国典籍·the ancient Chinese classics·'"
           @mouseleave="cursorSize = ''"
       ></div>
-      <div class="book-shelf" v-if="loaded">
-        <template v-for="(book,index) in booksData">
-          <book-spine
-              v-motion
-              :initial="motionOption.initial"
-              :enter="motionOption.enter"
-              :delay="80 * index"
-              :title="book.title"
-              :author="book.author"
-              :dynasty="book.dynasty"
-              @click.native="router.push('about')"
-              @mouseenter="handleMouseEnter(book.title)"
-              @mouseleave="cursorSize = ''"
-          />
-        </template>
-      </div>
+      <book-shelf
+          v-if="loaded"
+          @mouseenter="handleMouseEnter"
+          @mouseleave="cursorSize = ''"
+      />
     </div>
   </div>
 </template>
@@ -124,12 +102,5 @@ const handleMouseEnter = (text: string) => {
     background: url("../assets/img/main_title.svg") no-repeat center;
     background-size: cover;
   }
-
-  .book-shelf {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-  }
-
 }
 </style>

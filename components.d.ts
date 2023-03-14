@@ -10,10 +10,12 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Ani: typeof import('./src/components/kits/Ani.vue')['default']
-    Book: typeof import('./src/components/Book.vue')['default']
+    BookShelf: typeof import('./src/components/BookShelf.vue')['default']
     BookSpine: typeof import('./src/components/BookSpine.vue')['default']
     ClickOutside: typeof import('./src/components/kits/ClickOutside.vue')['default']
     CustomCursor: typeof import('./src/components/kits/CustomCursor.vue')['default']
+    Detail: typeof import('./src/components/Detail.vue')['default']
+    Icon: typeof import('./src/components/kits/icon/Icon.vue')['default']
     Loading: typeof import('./src/components/kits/Loading.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
