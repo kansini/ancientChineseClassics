@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import Ani from "./Ani.vue";
 import {ref, reactive} from "vue";
+import {checkImagesLoaded} from "../../utils/imgLoaded"
 
 interface ILoading {
   loading: boolean
@@ -29,7 +30,22 @@ const motionOption = reactive({
     scale: 1
   }
 })
-const preloadImg = reactive<string[]>(['title.svg', 'illustration-cover.svg', 'main_bg.jpg', 'main_title.svg'])
+// const preloadImg = reactive<string[]>(['title.svg', 'illustration-cover.svg', 'main_bg.jpg', 'main_title.svg'])
+// const imageRefs = reactive<HTMLImageElement[]>([]);
+const baseUrl = ref<string>('../../src/assets/img/');
+const preloadImages: string[] = [
+  `${baseUrl.value}title.svg`,
+  `${baseUrl.value}illustration-cover.svg`,
+  `${baseUrl.value}main_bg.jpg`,
+  `${baseUrl.value}main_title.svg`,
+];
+const loadResult = checkImagesLoaded(preloadImages).then((result) => {
+  if (result) {
+    console.log('所有图片已加载完毕');
+  } else {
+    console.log('有图片加载失败');
+  }
+});
 </script>
 <template>
   <transition name="slideUp">
@@ -50,11 +66,6 @@ const preloadImg = reactive<string[]>(['title.svg', 'illustration-cover.svg', 'm
       <div style="width: 90px;height: 42px" v-else></div>
     </div>
   </transition>
-  <div class="img-preload">
-    <template v-for="img in preloadImg">
-      <img :src="`../../src/assets/img/${img}`">
-    </template>
-  </div>
 </template>
 
 <style lang="scss" scoped>
