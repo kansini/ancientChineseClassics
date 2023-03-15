@@ -6,12 +6,12 @@ import {NUM} from "@/utils/num"
 interface IBooksData {
   name: string
   description: string
-  articles: Array<IArticlesData>
+  articles: IArticlesData[]
 }
 
 interface IArticlesData {
   title: string
-  content: Array<string>
+  content: string[]
 }
 
 interface IProps {

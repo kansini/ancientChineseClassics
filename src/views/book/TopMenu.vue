@@ -18,7 +18,7 @@ defineProps({
   }
 })
 const emit = defineEmits(['toggle'])
-const menuData = reactive<Array<IMenu>>([
+const menuData = reactive<IMenu[]>([
   {
     name: "首页",
     icon: "home",

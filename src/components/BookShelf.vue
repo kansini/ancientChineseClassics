@@ -23,7 +23,7 @@ interface IContents {
   dynasty: string
 }
 
-const booksData = ref<Array<IContents>>([])
+const booksData = ref<IContents[]>([])
 const router = useRouter()
 
 const emit = defineEmits(['mouseenter', 'mouseleave'])

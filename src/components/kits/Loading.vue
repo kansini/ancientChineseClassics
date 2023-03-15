@@ -29,6 +29,7 @@ const motionOption = reactive({
     scale: 1
   }
 })
+const preloadImg = reactive<string[]>(['title.svg', 'illustration-cover.svg', 'main_bg.jpg', 'main_title.svg'])
 </script>
 <template>
   <transition name="slideUp">
@@ -49,6 +50,11 @@ const motionOption = reactive({
       <div style="width: 90px;height: 42px" v-else></div>
     </div>
   </transition>
+  <div class="img-preload">
+    <template v-for="img in preloadImg">
+      <img :src="`../../src/assets/img/${img}`">
+    </template>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -115,5 +121,9 @@ const motionOption = reactive({
       }
     }
   }
+}
+
+.img-preload {
+  display: none;
 }
 </style>
