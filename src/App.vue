@@ -7,7 +7,7 @@
 
 <style lang="scss">
 #app {
-  background: url("./assets/img/main_bg.jpg") center;
+  background: $acc-main-bg;
   background-size: 100%;
 }
 </style>

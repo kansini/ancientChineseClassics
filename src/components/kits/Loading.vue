@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import Ani from "./Ani.vue";
 import {ref, reactive} from "vue";
+// import {ProgressBar} from "./ProgressBar.vue"
+
 
 interface ILoading {
   loading: boolean
@@ -31,6 +32,7 @@ const motionOption = reactive({
 })
 </script>
 <template>
+  <progress-bar v-if="!loaded"/>
   <transition name="slideUp">
     <div class="loading-container" v-if="!loaded">
       <div class="loading-title"></div>
@@ -40,13 +42,12 @@ const motionOption = reactive({
            :initial="motionOption.initial"
            :enter="motionOption.enter"
            @click="handleEnter"
-           v-if="!loading">
+           :class="{'hidden':loading}">
         <div class="btn-enter-inner">
           <div>开卷</div>
           <div>有益</div>
         </div>
       </div>
-      <div style="width: 90px;height: 42px" v-else></div>
     </div>
   </transition>
   <div class="img-preload">
@@ -64,7 +65,7 @@ const motionOption = reactive({
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 80, 1);
+  background: $acc-blue-dark;
   backdrop-filter: blur(20px);
   position: absolute;
   left: 0;
@@ -124,5 +125,9 @@ const motionOption = reactive({
 
 .img-preload {
   display: none;
+}
+
+.hidden {
+  visibility: hidden;
 }
 </style>

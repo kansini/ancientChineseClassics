@@ -30,13 +30,7 @@ const booksData = ref<IBooksData>({
 getBooksData(props.name).then((res) => booksData.value = res.data)
 
 const getVolNum = (index: number) => {
-  if (index > 0 && index < 7) {
-    return "上篇"
-  } else if (index > 6 && index < 14) {
-    return "中篇"
-  } else {
-    return "下篇"
-  }
+  return index > 0 && index < 7 ? "上篇" : (index > 6 && index < 14 ? "中篇" : "下篇");
 }
 </script>
 

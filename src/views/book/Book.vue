@@ -17,7 +17,7 @@ const motionOption = reactive({
     scale: 1,
     filter: 'blur(0px)',
     transition: {
-      duration: 800
+      duration: 400
     }
   }
 })
@@ -30,13 +30,19 @@ const cursorSize = ref('')
       :is-over="y > 0"
       @toggle="toggle"
   />
-  <div class="cover"
-       v-motion
-       :initial="motionOption.initial"
-       :enter="motionOption.enter"
-  >
-    <div class="title"></div>
-    <div class="illustration"></div>
+  <div class="cover">
+    <div class="title"
+         v-motion
+         :initial="motionOption.initial"
+         :enter="motionOption.enter"
+    ></div>
+    <div
+        class="illustration"
+        v-motion
+        :initial="motionOption.initial"
+        :enter="motionOption.enter"
+        :delay="400"
+    ></div>
   </div>
   <detail name="天工开物"/>
 </template>

@@ -7,8 +7,9 @@ const router = useRouter()
 
 interface IMenu {
   name: string
+  en?: string
   icon?: string
-  method: Function
+  method: (name?: string) => void
 }
 
 defineProps({
@@ -20,33 +21,22 @@ defineProps({
 const emit = defineEmits(['toggle'])
 const menuData = reactive<IMenu[]>([
   {
-    name: "首页",
-    icon: "home",
+    name: "首",
+    en: "Home",
     method: () => {
       router.push('/')
     }
   },
   {
-    name: "简介",
-    icon: "intro",
-    method: (name: string) => {
-      console.log(name)
-    }
+    name: "介",
+    en: "Intro",
+    method: () => {}
   },
   {
-    name: "目录",
-    icon: "index",
-    method: (name: string) => {
-      console.log(name)
-    }
+    name: "目",
+    en: "Index",
+    method: () => {}
   },
-  {
-    name: "全屏",
-    icon: "fullscreen",
-    method: () => {
-      emit('toggle')
-    }
-  }
 ])
 </script>
 <template>
@@ -55,8 +45,9 @@ const menuData = reactive<IMenu[]>([
       <div class="top-menu-item"
            @click="item.method(item.name)"
       >
-        <acc-icon :name="item.icon"/>
-        <!--        {{ item.name }}-->
+<!--        <acc-icon :name="item.icon"/>-->
+        <div>{{ item.name }}</div>
+        <div> {{ item.en }}</div>
       </div>
     </template>
   </div>
@@ -67,10 +58,12 @@ const menuData = reactive<IMenu[]>([
   left: 0;
   top: 0;
   width: 100%;
-  height: 48px;
+  height: 56px;
+  padding: 0 16px;
   background: rgba(255, 255, 255, 0);
   font-family: "carved";
-  font-size: 12px;
+  color: $acc-gold;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -78,13 +71,45 @@ const menuData = reactive<IMenu[]>([
   transition: all ease .4s;
 
   .top-menu-item {
-    padding: 0 8px;
+    position: relative;
+    padding: 8px 24px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    div {
+      transition: all ease-in .4s;
+    }
+
+    div:nth-child(2) {
+      font-size: 12px;
+      transform: scale(0.6) rotate(90deg) translate(-16px, -24px);
+      position: absolute;
+    }
+
+    &:not(:last-child)::after {
+      position: absolute;
+      right: -8px;
+      content: "";
+      width: 1px;
+      height: 20px;
+      background: $acc-red-dark;
+      transform: rotate(26deg);
+    }
+
+    &:hover {
+      div {
+        transform: scale(1.4);
+
+        &:nth-child(2) {
+          transform: scale(1.2) rotate(0deg) translate(-2px, 20px);
+        }
+      }
+    }
   }
 
   &.is-over {
-    background: rgba(255, 255, 255, .1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
   }
 }
 </style>

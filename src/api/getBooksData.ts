@@ -1,8 +1,5 @@
 import $http from "./index"
 
+const getBooksData = (name: string) => $http.get(`books/${name}.json`)
 
-const getBooksData = (name: string) => {
-    return $http.get(`books/${name}.json`)
-
-}
 export {getBooksData}

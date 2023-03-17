@@ -1,13 +1,12 @@
 $acc-blue: #00182f;
-$acc-red: #e30000;
-$ohs-blue-light: rgba(0, 140, 255, .2);
-$ohs-orange: #ffb52f;
-$ohs-red: #FF5368;
-$ohs-red-light: rgba(255, 83, 104, .1);
-$ohs-green: #00CE7d;
-$ohs-green-light: #FBFFFD;
-$ohs-black: #18191F;
-$ohs-gray: #dcdfe6;
-$ohs-gray-light: rgba(0, 0, 0, .05);
-$ohs-border: 1px solid $ohs-gray;
-$ohs-basic-unit: 8px;
+$acc-blue-dark: #000050;
+$acc-red: #CB0017;
+$acc-red-dark: #C4001A;
+$acc-gold: #9C7F59;
+$acc-gold-dark: #A57B5E;
+$acc-gold-light: #F8F3E7;
+$acc-black: #251716;
+$acc-bg-light: #EADFD7;
+$acc-bg-dark: #9B7E6A;
+
+$acc-main-bg: url("./assets/img/main_bg.jpg") center;

@@ -2,7 +2,6 @@
 import BookShelf from "../components/BookShelf.vue"
 import Loading from "../components/kits/Loading.vue"
 import {ref, reactive} from "vue";
-import {areImagesLoaded} from "../utils/imgLoaded"
 
 const motionOption = reactive({
   initial: {
@@ -98,7 +97,7 @@ const handleMouseEnter = (text: string) => {
     width: 344px;
     height: 72px;
     margin-bottom: 80px;
-    background: url("../assets/img/main_title.svg") no-repeat center;
+    background:url("../assets/img/main_title.svg") no-repeat center;
     background-size: cover;
   }
 }

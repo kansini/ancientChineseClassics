@@ -2,7 +2,6 @@
 import {ref, reactive} from "vue";
 import {useRouter} from "vue-router"
 import {getBooksData} from "../api/getBooksData"
-import BookSpine from "../components/BookSpine.vue"
 
 const motionOption = reactive({
   initial: {
