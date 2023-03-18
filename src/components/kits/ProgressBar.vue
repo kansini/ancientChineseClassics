@@ -20,50 +20,66 @@ const loadResources = async () => {
   }
 
   // Preload custom fonts
-  const font = new FontFace('CustomFont', 'url(./assets/fonts/carved.woff)');
+  const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)', {display: 'swap'});
   font.loaded.then(() => {
     loadedResources++;
     progress.value = Math.floor((loadedResources / totalResources) * 100);
   });
   await font.load();
   document.fonts.add(font);
+
+  // 将预加载的文件写入缓存
+  caches.open('my-cache').then((cache) => {
+    cache.addAll(Array.from(Object.keys(images), key => (images[key] as any).default));
+    cache.add('./assets/fonts/carved.woff');
+  });
 };
 
 onMounted(() => {
   loadResources();
 });
+defineProps({
+  loading: {
+    type: Boolean,
+    default: true
+  }
+})
 </script>
 <template>
-  <div class="progress-container">
+  <div class="progress-container" :class="{'is-loaded':!loading}">
     <div class="progress-bar" :style="{ width: progress + '%' }">
-      <div class="progress-text">{{ progress }}%</div>
+      <div class="progress-text" v-if="loading">{{ progress }}%</div>
+      <slot></slot>
     </div>
-
   </div>
 </template>
 
 <style lang="scss" scoped>
 .progress-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: $acc-blue-dark;
-  z-index: 1000
-}
+  width: 240px;
+  height: 42px;
+  border-radius: 42px;
+  //background: $acc-gold-light;
+  border: 1px solid #fff;
+  overflow: hidden;
+  transition: all ease-in .4s;
 
-.progress-bar {
-  height: 100%;
-  background-color: $acc-gold;
-  transition: width 0.5s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .progress-bar {
+    height: 100%;
+    background-color: rgba(255, 255, 255, .2);
+    transition: width 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.progress-text {
-  font-size: 12px;
-  color: #fff;
+    .progress-text {
+      font-size: 12px;
+      color: #fff;
+    }
+  }
+
+  &.is-loaded {
+    width: 90px;
+  }
 }
 </style>

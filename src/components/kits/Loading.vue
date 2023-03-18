@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {ref, reactive} from "vue";
+
 // import {ProgressBar} from "./ProgressBar.vue"
 
 
@@ -32,22 +33,24 @@ const motionOption = reactive({
 })
 </script>
 <template>
-  <progress-bar v-if="!loaded"/>
   <transition name="slideUp">
     <div class="loading-container" v-if="!loaded">
       <div class="loading-title"></div>
       <ani name="loading-brochure" width="160px" height="160px"/>
-      <div class="btn-enter"
-           v-motion
-           :initial="motionOption.initial"
-           :enter="motionOption.enter"
-           @click="handleEnter"
-           :class="{'hidden':loading}">
-        <div class="btn-enter-inner">
-          <div>开卷</div>
-          <div>有益</div>
+      <progress-bar :loading="loading">
+        <div class="btn-enter"
+             v-if="!loading"
+             v-motion
+             :initial="motionOption.initial"
+             :enter="motionOption.enter"
+             @click="handleEnter"
+             :class="{'hidden':loading}">
+          <div class="btn-enter-inner">
+            <div>开卷</div>
+            <div>有益</div>
+          </div>
         </div>
-      </div>
+      </progress-bar>
     </div>
   </transition>
   <div class="img-preload">
@@ -86,7 +89,7 @@ const motionOption = reactive({
     font-size: 20px;
     cursor: pointer;
     padding: 8px 24px;
-    border: 1px solid #fff;
+    //border: 1px solid #fff;
     border-radius: 40px;
     transition: all ease .4s;
     overflow: hidden;
@@ -95,6 +98,7 @@ const motionOption = reactive({
     .btn-enter-inner {
       height: 24px;
       overflow: hidden;
+      white-space: nowrap;
     }
 
     div {
