@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue"
+import {ref} from "vue";
 import {getBooksData} from "@/api/getBooksData";
-import {NUM} from "@/utils/num"
-import gsap from "gsap"
+import {NUM} from "@/utils/num";
+
 
 interface IBooksData {
   name: string
@@ -33,38 +33,6 @@ getBooksData(props.name).then((res) => booksData.value = res.data)
 const getVolNum = (index: number) => {
   return index > 0 && index < 7 ? "上篇" : (index > 6 && index < 14 ? "中篇" : "下篇");
 }
-
-onMounted(() => {
-  // Ensure that the .article and .vol elements are present before applying the gsap animations
-  const articleElements = document.querySelectorAll(".article");
-  const volElements = document.querySelectorAll(".vol");
-
-  if (articleElements.length > 0) {
-    gsap.to(".article", {
-      yPercent: -20,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".article",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    });
-  }
-
-  if (volElements.length > 0) {
-    gsap.to(".vol", {
-      yPercent: 20,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".vol",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    });
-  }
-})
 </script>
 
 <template>

@@ -47,7 +47,7 @@ defineProps({
 </script>
 <template>
   <div class="progress-container" :class="{'is-loaded':!loading}">
-    <div class="progress-bar" :style="{ width: progress + '%' }">
+    <div class="progress-bar" :style="{ width: progress + '%' }" v-if="progress > 0">
       <div class="progress-text" v-if="loading">{{ progress }}%</div>
       <slot></slot>
     </div>
@@ -67,7 +67,7 @@ defineProps({
   .progress-bar {
     height: 100%;
     background-color: rgba(255, 255, 255, .2);
-    transition: width 0.5s;
+    transition: all 0.5s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,6 +80,10 @@ defineProps({
 
   &.is-loaded {
     width: 90px;
+
+    .progress-bar {
+      background-color: rgba(255, 255, 255, 0);
+    }
   }
 }
 </style>

@@ -11,8 +11,14 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/book',
         name: 'book',
-        component: () => import('../views/book/Book.vue')
+        component: () => import('../views/Book.vue')
+    },
+    {
+        path: '/scroll',
+        name: 'scroll',
+        component: () => import('../views/ScrollDemo.vue')
     }
+
 ]
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

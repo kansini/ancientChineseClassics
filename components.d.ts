@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     BookShelf: typeof import('./src/components/BookShelf.vue')['default']
     BookSpine: typeof import('./src/components/BookSpine.vue')['default']
     ClickOutside: typeof import('./src/components/kits/ClickOutside.vue')['default']
+    Cover: typeof import('./src/components/Cover.vue')['default']
     CustomCursor: typeof import('./src/components/kits/CustomCursor.vue')['default']
     Detail: typeof import('./src/components/Detail.vue')['default']
     Icon: typeof import('./src/components/kits/icon/Icon.vue')['default']
@@ -20,5 +21,6 @@ declare module '@vue/runtime-core' {
     ProgressBar: typeof import('./src/components/kits/ProgressBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TopMenu: typeof import('./src/components/TopMenu.vue')['default']
   }
 }

@@ -1,11 +1,6 @@
-<script setup lang="ts">
-import Detail from "../../components/Detail.vue"
-import {reactive, ref} from "vue";
-import TopMenu from "./TopMenu.vue"
-import {useWindowScroll, useFullscreen} from '@vueuse/core'
+<script lang="ts" setup>
+import {reactive} from "vue";
 
-const {isFullscreen, enter, exit, toggle} = useFullscreen()
-const {x, y} = useWindowScroll()
 const motionOption = reactive({
   initial: {
     opacity: 0,
@@ -21,16 +16,9 @@ const motionOption = reactive({
     }
   }
 })
-const cursorSize = ref('')
 </script>
-
 <template>
-  <custom-cursor :size="cursorSize"/>
-  <top-menu
-      :is-over="y > 0"
-      @toggle="toggle"
-  />
-  <div class="cover">
+ <div class="cover">
     <div class="title"
          v-motion
          :initial="motionOption.initial"
@@ -44,8 +32,9 @@ const cursorSize = ref('')
         :delay="400"
     ></div>
   </div>
-  <detail name="天工开物"/>
 </template>
+
+
 
 <style lang="scss" scoped>
 .cover {
@@ -59,16 +48,15 @@ const cursorSize = ref('')
   .title {
     width: 64px;
     height: 242px;
-    background: url("../../assets/img/title.svg") no-repeat center;
+    background: url("../assets/img/title.svg") no-repeat center;
     background-size: cover;
   }
 
   .illustration {
     width: 156px;
     height: 242px;
-    background: url("../../assets/img/illustration-cover.svg") no-repeat center right;
+    background: url("../assets/img/illustration-cover.svg") no-repeat center right;
     background-size: cover;
   }
-
 }
 </style>

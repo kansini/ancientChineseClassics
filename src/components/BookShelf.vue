@@ -45,7 +45,7 @@ getBooksData('contents').then((res) => booksData.value = res.data)
           :title="book.title"
           :author="book.author"
           :dynasty="book.dynasty"
-          @click.native="router.push('book')"
+          @click.native="router.push('scroll')"
           @mouseenter="handleMouseEnter(book.title)"
           @mouseleave="handleMouseLeave"
       />

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {reactive} from "vue";
 import {useRouter} from "vue-router";
-import accIcon from "../../components/kits/icon/Icon.vue"
+import accIcon from "./kits/icon/Icon.vue"
 
 const router = useRouter()
 
@@ -69,6 +69,7 @@ const menuData = reactive<IMenu[]>([
   justify-content: flex-end;
   z-index: 999;
   transition: all ease .4s;
+  pointer-events: none;
 
   .top-menu-item {
     position: relative;
@@ -76,6 +77,7 @@ const menuData = reactive<IMenu[]>([
     cursor: pointer;
     display: flex;
     align-items: center;
+    pointer-events: all;
 
     div {
       transition: all ease-in .4s;
