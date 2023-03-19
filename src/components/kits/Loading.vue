@@ -25,9 +25,9 @@ const loadResources = async () => {
   font.loaded.then(() => {
     loadedResources++;
     progress.value = Math.floor((loadedResources / totalResources) * 100);
+    if (progress.value === 100) loading.value = false
   });
   await font.load();
-  loading.value = false
   document.fonts.add(font);
 
   // 将预加载的文件写入缓存
