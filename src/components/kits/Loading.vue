@@ -2,7 +2,7 @@
 import {ref, reactive, onMounted} from "vue";
 
 
-const loading = ref<boolean>(false)
+const loading = ref<boolean>(true)
 const progress = ref<number>(0)
 // Load all images and custom fonts in the project and combine their progress
 const loadResources = async () => {
@@ -71,8 +71,7 @@ const motionOption = reactive({
              v-motion
              :initial="motionOption.initial"
              :enter="motionOption.enter"
-             @click="handleEnter"
-             :class="{'hidden':loading}">
+             @click="handleEnter">
           <div class="btn-enter-inner">
             <div>开卷</div>
             <div>有益</div>
