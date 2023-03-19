@@ -1,22 +1,47 @@
 <script lang="ts" setup>
-import {ref, reactive} from "vue";
-
-// import {ProgressBar} from "./ProgressBar.vue"
+import {ref, reactive, onMounted} from "vue";
 
 
-interface ILoading {
-  loading: boolean
-  percent?: number
-}
+const loading = ref<boolean>(false)
+const progress = ref<number>(0)
+// Load all images and custom fonts in the project and combine their progress
+const loadResources = async () => {
+  const images = import.meta.globEager('@/assets/img/*.{svg,jpg}');
+  const totalImages = Object.keys(images).length;
+  let loadedResources = 0;
+  const totalResources = totalImages + 1; // Add 1 for the custom font
 
-withDefaults(defineProps<ILoading>(), {
-  loading: false,
-  percent: 0
-})
-const loaded = ref<boolean>(false)
+  for (const imageKey in images) {
+    const image = new Image();
+    image.src = (images[imageKey] as any).default;
+    image.onload = () => {
+      loadedResources++;
+      progress.value = Math.floor((loadedResources / totalResources) * 100);
+    };
+  }
+
+  // Preload custom fonts
+  const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)', {display: 'swap'});
+  font.loaded.then(() => {
+    loadedResources++;
+    progress.value = Math.floor((loadedResources / totalResources) * 100);
+  });
+  await font.load();
+  loading.value = false
+  document.fonts.add(font);
+
+  // 将预加载的文件写入缓存
+  // caches.open('my-cache').then((cache) => {
+  //   cache.addAll(Array.from(Object.keys(images), key => (images[key] as any).default));
+  //   cache.add('./assets/fonts/carved.woff');
+  // });
+};
+
+onMounted(() => {
+  loadResources();
+});
 const emit = defineEmits(['enter'])
 const handleEnter = () => {
-  loaded.value = true
   emit('enter')
 }
 const motionOption = reactive({
@@ -34,10 +59,13 @@ const motionOption = reactive({
 </script>
 <template>
   <transition name="slideUp">
-    <div class="loading-container" v-if="!loaded">
+    <div class="loading-container">
       <div class="loading-title"></div>
       <ani name="loading-brochure" width="160px" height="160px"/>
-      <progress-bar :loading="loading">
+      <progress-bar
+          :progress="progress"
+          :loading="loading"
+      >
         <div class="btn-enter"
              v-if="!loading"
              v-motion

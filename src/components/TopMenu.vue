@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import {reactive} from "vue";
 import {useRouter} from "vue-router";
-import accIcon from "./kits/icon/Icon.vue"
 
 const router = useRouter()
 
@@ -21,19 +20,19 @@ defineProps({
 const emit = defineEmits(['toggle'])
 const menuData = reactive<IMenu[]>([
   {
-    name: "首",
+    name: "纲",
     en: "Home",
     method: () => {
-      router.push('/')
+      router.push('/home')
     }
   },
   {
-    name: "介",
+    name: "略",
     en: "Intro",
     method: () => {}
   },
   {
-    name: "目",
+    name: "录",
     en: "Index",
     method: () => {}
   },

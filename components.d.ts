@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     Detail: typeof import('./src/components/Detail.vue')['default']
     Icon: typeof import('./src/components/kits/icon/Icon.vue')['default']
     Loading: typeof import('./src/components/kits/Loading.vue')['default']
+    Mouse: typeof import('./src/components/kits/Mouse.vue')['default']
     ProgressBar: typeof import('./src/components/kits/ProgressBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

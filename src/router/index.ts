@@ -1,23 +1,28 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import type {RouteRecordRaw} from 'vue-router'
-import Home from '../views/Home.vue'
+import Landing from '../views/Landing.vue'
 
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
+        name: 'landing',
+        component: Landing
+    },
+    {
+        path: '/home',
         name: 'home',
-        component: Home
+        component: () => import('../views/Home.vue')
     },
     {
         path: '/book',
         name: 'book',
         component: () => import('../views/Book.vue')
-    },
-    {
-        path: '/scroll',
-        name: 'scroll',
-        component: () => import('../views/ScrollDemo.vue')
     }
+    // {
+    //     path: '/scroll',
+    //     name: 'scroll',
+    //     component: () => import('../views/Book.vue')
+    // }
 
 ]
 const router = createRouter({

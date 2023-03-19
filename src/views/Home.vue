@@ -59,13 +59,12 @@ const handleMouseEnter = (text: string) => {
 
 <template>
   <div>
-    <loading :loading="loading" @enter="loaded = true"/>
     <custom-cursor
         :size="cursorSize"
         :text="cursorText"
     />
     <div class="home">
-      <div v-if="loaded"
+      <div
            class="title"
            v-motion
            :initial="titleMotionOption.initial"
@@ -75,7 +74,7 @@ const handleMouseEnter = (text: string) => {
 
       </div>
       <book-shelf
-          v-if="loaded"
+
           @mouseenter="handleMouseEnter"
           @mouseleave="cursorSize = ''"
       />
