@@ -25,7 +25,7 @@ const loadResources = async () => {
   font.loaded.then(() => {
     loadedResources++;
     progress.value = Math.floor((loadedResources / totalResources) * 100);
-    if (progress.value === 100) loading.value = false
+    loading.value = false
   });
   await font.load();
   document.fonts.add(font);
@@ -80,11 +80,11 @@ const motionOption = reactive({
       </progress-bar>
     </div>
   </transition>
-  <div class="img-preload">
-    <img src="../../assets/img/title.svg">
-    <img src="../../assets/img/illustration-cover.svg">
-    <img src="../../assets/img/main_title.svg">
-  </div>
+<!--  <div class="img-preload">-->
+<!--    <img src="../../assets/img/title.svg">-->
+<!--    <img src="../../assets/img/illustration-cover.svg">-->
+<!--    <img src="../../assets/img/main_title.svg">-->
+<!--  </div>-->
 </template>
 
 <style lang="scss" scoped>
