@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 import {reactive} from "vue";
+import gsap from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger);
+
+
 
 const motionOption = reactive({
   initial: {

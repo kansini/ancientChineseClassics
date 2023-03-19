@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import {onMounted, onUnmounted, ref} from 'vue';
-import gsap from 'gsap-trial';
-import {ScrollTrigger} from 'gsap-trial/ScrollTrigger';
-import {ScrollSmoother} from 'gsap-trial/ScrollSmoother';
+import gsap from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+// import {ScrollSmoother} from 'gsap-trial/ScrollSmoother';
 import {useWindowScroll} from '@vueuse/core'
 
 const {x, y} = useWindowScroll()
 
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 const main = ref();
 const ctx = ref();
 const smoother = ref();
@@ -19,16 +19,11 @@ const smoother = ref();
 
 onMounted(() => {
   ctx.value = gsap.context(() => {
-    // create the smooth scroller FIRST!
-    smoother.value = ScrollSmoother.create({
-      smooth: 1, // seconds it takes to "catch up" to native scroll position
-      effects: true, // look for data-speed and data-lag attributes on elements and animate accordingly
-    });
     ScrollTrigger.create({
       trigger: '.cover',
       pin: true,
-      start: 'center top',
-      end: '+=100'
+      start: 'center center',
+      end: '+=400'
     });
   }, main.value);
 });
@@ -39,14 +34,15 @@ onUnmounted(() => {
 
 <template>
   <custom-cursor/>
-  <top-menu :is-over="y > 380"/>
+  <top-menu :is-over="y > 480"/>
   <div class="smooth-wrapper" ref="main">
     <div id="smooth-content">
-      <div class="cover" data-speed="0.8">
+      <div class="cover">
         <cover/>
       </div>
-  
-      <detail name="天工开物"/>
+      <div class="detail">
+        <detail name="天工开物"/>
+      </div>
     </div>
   </div>
 </template>
@@ -56,7 +52,7 @@ onUnmounted(() => {
 #smooth-content {
   overflow: visible;
   width: 100%;
-  height: 80000px;
+  //height: 80000px;
   background: url("../assets/img/main_bg.jpg");
   background-size: 100%;
 }

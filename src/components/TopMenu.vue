@@ -58,7 +58,7 @@ const menuData = reactive<IMenu[]>([
   left: 0;
   top: 0;
   width: 100%;
-  height: 56px;
+  height: 64px;
   padding: 0 16px;
   background: rgba(255, 255, 255, 0);
   font-family: "carved";
@@ -101,17 +101,18 @@ const menuData = reactive<IMenu[]>([
 
     &:hover {
       div {
-        transform: scale(1.4);
+        transform: scale(1.4) translate(0px, -4px);
 
         &:nth-child(2) {
-          transform: scale(1.2) rotate(0deg) translate(-2px, 20px);
+          transform: scale(1.2) rotate(0deg) translate(-4px, 16px);
         }
       }
     }
   }
 
   &.is-over {
-    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, .2);
+    backdrop-filter: blur(2px);
   }
 }
 </style>
