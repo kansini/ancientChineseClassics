@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import {reactive} from "vue";
-import gsap from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger"
-gsap.registerPlugin(ScrollTrigger);
+import {reactive, ref} from "vue";
+import {useBookName} from "@/stores/bookName"
 
-
+const bookName = useBookName().bookName
+const baseUrl = ref('../src/assets/img/bookTitle/title_')
+const bookTitle = ref<string>(`${baseUrl.value}${bookName}.svg`)
 
 const motionOption = reactive({
   initial: {
@@ -23,8 +23,9 @@ const motionOption = reactive({
 })
 </script>
 <template>
- <div class="cover">
+  <div class="cover">
     <div class="title"
+         :style="{'background-image':`url(${bookTitle})`}"
          v-motion
          :initial="motionOption.initial"
          :enter="motionOption.enter"
@@ -40,7 +41,6 @@ const motionOption = reactive({
 </template>
 
 
-
 <style lang="scss" scoped>
 .cover {
   width: 100%;
@@ -52,16 +52,16 @@ const motionOption = reactive({
 
   .title {
     width: 64px;
-    height: 242px;
-    background: url("../assets/img/title.svg") no-repeat center;
-    background-size: cover;
+    height: 280px;
+    background: no-repeat center;
+    background-size: 100%;
   }
 
   .illustration {
     width: 156px;
-    height: 242px;
+    height: 280px;
     background: url("../assets/img/illustration-cover.svg") no-repeat center right;
-    background-size: cover;
+    background-size: 100%;
   }
 }
 </style>
