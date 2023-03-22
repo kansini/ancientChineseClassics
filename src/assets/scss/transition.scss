@@ -6,7 +6,7 @@
 .slideIn-enter-from,
 .slideIn-leave-to {
   opacity: 0;
-  transform: translate(-50%, 0);
+  transform: translate(-100%, 0);
 }
 
 .fadeLeft-enter-active,
@@ -15,7 +15,7 @@
 .fadeRight-leave-active,
 .fadeDown-enter-active,
 .fadeDown-leave-active{
-  transition: opacity .4s ease, transform .2s ease, filter .2s ease-in;
+  transition: opacity .4s ease, transform .3s ease, filter .2s ease-in;
 }
 
 .fadeRight-enter-from,
@@ -32,7 +32,7 @@
 
 .fadeDown-enter-from,
 .fadeDown-leave-to {
-  transform: translate(0, -50%);
+  transform: translate(0, -100%);
   opacity: 0;
   filter: blur(8px);
 }

@@ -17,12 +17,12 @@ const routes: RouteRecordRaw[] = [
         path: '/book',
         name: 'book',
         component: () => import('../views/Book.vue')
+    },
+    {
+        path: '/scroll',
+        name: 'scroll',
+        component: () => import('../views/ScrollDemo.vue')
     }
-    // {
-    //     path: '/scroll',
-    //     name: 'scroll',
-    //     component: () => import('../views/Book.vue')
-    // }
 
 ]
 const router = createRouter({

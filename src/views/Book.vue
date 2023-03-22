@@ -1,18 +1,20 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref} from 'vue';
+import {onMounted, onUnmounted, ref, reactive} from 'vue';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {useWindowScroll} from '@vueuse/core'
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+const showIntro = ref<boolean>(false)
+const showIndex = ref<boolean>(false)
 
 const {x, y} = useWindowScroll()
-
 
 gsap.registerPlugin(ScrollTrigger);
 const main = ref();
 const ctx = ref();
-const smoother = ref();
 
-// .from(".cover", { y: innerHeight * 1.5 });
 onMounted(() => {
   ctx.value = gsap.context(() => {
     ScrollTrigger.create({
@@ -36,10 +38,19 @@ onUnmounted(() => {
   ctx.value.revert();
 });
 </script>
-
 <template>
   <custom-cursor/>
-  <top-menu :is-over="y > 480"/>
+  <custom-modal v-model:visible="showIndex">
+    <h1>目录</h1>
+  </custom-modal>
+  <custom-modal v-model:visible="showIntro">
+    <intro/>
+  </custom-modal>
+  <top-menu
+      :is-over="y > 480"
+      @showIntro="showIntro = true"
+      @showContents="showIndex = true"
+  />
   <div class="smooth-wrapper" ref="main">
     <div id="smooth-content">
       <div class="cover">
