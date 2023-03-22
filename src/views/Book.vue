@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref, reactive} from 'vue';
+import {onMounted, onUnmounted, ref, computed} from 'vue';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
-import {useWindowScroll} from '@vueuse/core'
+import {useWindowScroll} from '@vueuse/core';
 import {useRouter} from "vue-router";
+import {useBookName} from '@/stores/bookName';
 
 const router = useRouter()
+const bookName = useBookName().bookName
+
 const showIntro = ref<boolean>(false)
 const showIndex = ref<boolean>(false)
 
@@ -60,7 +63,7 @@ onUnmounted(() => {
         <mouse v-if="y < 80"/>
       </transition>
       <div class="detail">
-        <detail name="天工开物"/>
+        <detail :name="bookName"/>
       </div>
     </div>
   </div>

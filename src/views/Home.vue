@@ -74,7 +74,6 @@ const handleMouseEnter = (text: string) => {
 
       </div>
       <book-shelf
-
           @mouseenter="handleMouseEnter"
           @mouseleave="cursorSize = ''"
       />

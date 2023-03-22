@@ -2,6 +2,7 @@
 import {ref, reactive} from "vue";
 import {useRouter} from "vue-router"
 import {getBooksData} from "../api/getBooksData"
+import {useBookName} from '@/stores/bookName';
 
 const motionOption = reactive({
   initial: {
@@ -32,6 +33,10 @@ const handleMouseEnter = (title: string) => {
 const handleMouseLeave = () => {
   emit('mouseleave')
 }
+const handleClickBook = (bookName: string) => {
+  router.push('book')
+  useBookName().bookName = bookName
+}
 getBooksData('contents').then((res) => booksData.value = res.data)
 </script>
 <template>
@@ -45,7 +50,7 @@ getBooksData('contents').then((res) => booksData.value = res.data)
           :title="book.title"
           :author="book.author"
           :dynasty="book.dynasty"
-          @click="router.push('book')"
+          @click="handleClickBook(book.title)"
           @mouseenter="handleMouseEnter(book.title)"
           @mouseleave="handleMouseLeave"
       />
