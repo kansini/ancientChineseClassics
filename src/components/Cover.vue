@@ -3,7 +3,7 @@ import {reactive, ref} from "vue";
 import {useBookName} from "@/stores/bookName"
 
 const bookName = useBookName().bookName
-const baseUrl = ref('../src/assets/img/bookTitle/title_')
+const baseUrl = ref('./assets/bookTitle/title_')
 const bookTitle = ref<string>(`${baseUrl.value}${bookName}.svg`)
 
 const motionOption = reactive({
