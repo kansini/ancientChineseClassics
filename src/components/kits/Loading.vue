@@ -8,6 +8,8 @@ const progress = ref<number>(0)
 const loadResources = async () => {
   const images = import.meta.globEager('@/assets/img/*.{svg,jpg}');
   const totalImages = Object.keys(images).length;
+  console.log('++++images++', images)
+  console.log('++++totalImages------++', totalImages)
   let loadedResources = 0;
   const totalResources = totalImages + 1; // Add 1 for the custom font
 
@@ -66,25 +68,21 @@ const motionOption = reactive({
           :progress="progress"
           :loading="loading"
       >
-        <div class="btn-enter"
-             v-if="!loading"
-             v-motion
-             :initial="motionOption.initial"
-             :enter="motionOption.enter"
-             @click="handleEnter">
-          <div class="btn-enter-inner">
-            <div>开卷</div>
-            <div>有益</div>
-          </div>
-        </div>
+        <acc-button
+            v-if="!loading"
+            v-motion
+            :initial="motionOption.initial"
+            :enter="motionOption.enter"
+            @click="handleEnter"
+        />
       </progress-bar>
     </div>
   </transition>
-<!--  <div class="img-preload">-->
-<!--    <img src="../../assets/img/title.svg">-->
-<!--    <img src="../../assets/img/illustration-cover.svg">-->
-<!--    <img src="../../assets/img/main_title.svg">-->
-<!--  </div>-->
+  <!--  <div class="img-preload">-->
+  <!--    <img src="../../assets/img/title.svg">-->
+  <!--    <img src="../../assets/img/illustration-cover.svg">-->
+  <!--    <img src="../../assets/img/main_title.svg">-->
+  <!--  </div>-->
 </template>
 
 <style lang="scss" scoped>
