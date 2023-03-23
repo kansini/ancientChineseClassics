@@ -20,12 +20,12 @@ const ctx = ref();
 
 onMounted(() => {
   ctx.value = gsap.context(() => {
-    ScrollTrigger.create({
-      trigger: '.cover',
-      pin: true,
-      start: 'center center',
-      end: '+=240'
-    });
+    // ScrollTrigger.create({
+    //   trigger: '.cover',
+    //   pin: true,
+    //   start: 'center center',
+    //   end: '+=240'
+    // });
     // gsap.timeline({
     //   scrollTrigger: {
     //     trigger: ".cover",

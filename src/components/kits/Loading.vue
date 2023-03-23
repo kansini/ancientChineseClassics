@@ -6,10 +6,10 @@ const loading = ref<boolean>(true)
 const progress = ref<number>(0)
 // Load all images and custom fonts in the project and combine their progress
 const loadResources = async () => {
-  const images = import.meta.globEager('@/assets/img/*.{svg,jpg}');
+  const images = import.meta.globEager('../../../public/assets/bookTitle/*.{svg,jpg}');
   const totalImages = Object.keys(images).length;
-  console.log('++++images++', images)
-  console.log('++++totalImages------++', totalImages)
+  console.log('======', images)
+  console.log('++++++', totalImages)
   let loadedResources = 0;
   const totalResources = totalImages + 1; // Add 1 for the custom font
 

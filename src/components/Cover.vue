@@ -3,8 +3,8 @@ import {reactive, ref} from "vue";
 import {useBookName} from "@/stores/bookName"
 
 const bookName = useBookName().bookName
-const baseUrl = ref('./assets/bookTitle/title_')
-const bookTitle = ref<string>(`${baseUrl.value}${bookName}.svg`)
+const baseUrl = ref('./assets/bookTitle/')
+const bookTitle = ref<string>(`${baseUrl.value}title_${bookName}.svg`)
 
 const motionOption = reactive({
   initial: {
@@ -25,11 +25,12 @@ const motionOption = reactive({
 <template>
   <div class="cover">
     <div class="title"
-         :style="{'background-image':`url(${bookTitle})`}"
          v-motion
          :initial="motionOption.initial"
          :enter="motionOption.enter"
-    ></div>
+    >
+      <img :src="bookTitle">
+    </div>
     <div
         class="illustration"
         v-motion
@@ -51,10 +52,12 @@ const motionOption = reactive({
   gap: 8px;
 
   .title {
-    width: 64px;
-    height: 280px;
-    background: no-repeat center;
-    background-size: 100%;
+    //width: 64px;
+    height: 240px;
+
+    img {
+      height: 100%;
+    }
   }
 
   .illustration {

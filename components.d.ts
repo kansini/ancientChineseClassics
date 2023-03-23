@@ -11,7 +11,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AccButton: typeof import('./src/components/kits/AccButton.vue')['default']
     Ani: typeof import('./src/components/kits/Ani.vue')['default']
-    AwsomeButton: typeof import('./src/components/kits/AwsomeButton.vue')['default']
     BookShelf: typeof import('./src/components/BookShelf.vue')['default']
     BookSpine: typeof import('./src/components/BookSpine.vue')['default']
     ClickOutside: typeof import('./src/components/kits/ClickOutside.vue')['default']
