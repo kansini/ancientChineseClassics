@@ -6,15 +6,17 @@ const handleClose = () => {
 
 interface IModal {
   visible: boolean
+  width?: string | number
 }
 
 withDefaults(defineProps<IModal>(), {
-  visible: false
+  visible: false,
+  width: '100%'
 })
 </script>
 <template>
   <transition name="fadeRight">
-    <div class="acc-modal-container" v-if="visible">
+    <div class="acc-modal-container" v-if="visible" :style="{width:width}">
       <menu-item @click="handleClose" name="退" en="Exit"/>
       <slot></slot>
     </div>
@@ -24,10 +26,9 @@ withDefaults(defineProps<IModal>(), {
 <style lang="scss" scoped>
 .acc-modal-container {
   position: fixed;
-  left: 0;
+  right: 0;
   top: 0;
   background: rgba(255, 255, 255, .2);
-  width: 100vw;
   height: 100vh;
   backdrop-filter: blur(24px);
   z-index: 2;

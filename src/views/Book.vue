@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref, computed} from 'vue';
+import {onMounted, onUnmounted, ref, computed, reactive} from 'vue';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {useWindowScroll} from '@vueuse/core';
@@ -43,11 +43,11 @@ onUnmounted(() => {
 </script>
 <template>
   <custom-cursor/>
-  <custom-modal v-model:visible="showIndex">
-    <h1>目录</h1>
+  <custom-modal v-model:visible="showIndex" width="480px">
+    <contents :name="bookName"/>
   </custom-modal>
   <custom-modal v-model:visible="showIntro">
-    <intro/>
+    <intro :name="bookName"/>
   </custom-modal>
   <top-menu
       :is-over="y > 480"
@@ -74,9 +74,9 @@ onUnmounted(() => {
 #smooth-content {
   overflow: visible;
   width: 100%;
-  //height: 80000px;
   background: url("../assets/img/main_bg.jpg");
   background-size: 100%;
+  overflow-x: hidden;
 }
 
 .cover {
