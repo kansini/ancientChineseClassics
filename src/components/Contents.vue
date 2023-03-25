@@ -40,7 +40,7 @@ getBooksData(props.name).then((res) => contentsData.value = res.data.articles)
   flex-wrap: wrap;
   padding: 12px 24px;
   gap: 8px;
-  max-height: 100%;
+  max-height: calc(100vh - 64px);
   overflow-y: auto;
 
   .contents-item {
