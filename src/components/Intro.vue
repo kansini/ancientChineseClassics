@@ -65,6 +65,8 @@ getBooksData(props.name).then((res) => introData.value = res.data)
     text-indent: 2em;
     line-height: 40px;
     width: 960px;
+    max-height: calc(100vh - 128px);
+    overflow-y: auto;
   }
 }
 </style>

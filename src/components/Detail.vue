@@ -42,7 +42,7 @@ const getVolNum = (index: number) => {
 <!--      <div class="title-item" v-if="index >0">-->
 <!--        {{ getVolNum(index) }}-->
 <!--      </div>-->
-      <div class="title-item">{{ NUM[index+1] }}</div>
+<!--      <div class="title-item">{{ NUM[index+1] }}</div>-->
       <div class="title-item">{{ article.title }}</div>
     </div>
     <div class="vol">
