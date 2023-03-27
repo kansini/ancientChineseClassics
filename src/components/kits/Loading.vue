@@ -78,11 +78,6 @@ const motionOption = reactive({
       </progress-bar>
     </div>
   </transition>
-  <!--  <div class="img-preload">-->
-  <!--    <img src="../../assets/img/title.svg">-->
-  <!--    <img src="../../assets/img/illustration-cover.svg">-->
-  <!--    <img src="../../assets/img/main_title.svg">-->
-  <!--  </div>-->
 </template>
 
 <style lang="scss" scoped>
@@ -152,11 +147,4 @@ const motionOption = reactive({
   }
 }
 
-.img-preload {
-  display: none;
-}
-
-.hidden {
-  visibility: hidden;
-}
 </style>

@@ -3,6 +3,7 @@ import {ref, reactive} from "vue";
 import {useRouter} from "vue-router"
 import {getBooksData} from "../api/getBooksData"
 import {useBookName} from '@/stores/bookName';
+import type {IContents} from "../interface"
 
 const motionOption = reactive({
   initial: {
@@ -16,12 +17,6 @@ const motionOption = reactive({
     scale: 1
   }
 })
-
-interface IContents {
-  title: string
-  author: string
-  dynasty: string
-}
 
 const booksData = ref<IContents[]>([])
 const router = useRouter()
