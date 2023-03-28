@@ -53,7 +53,7 @@ onUnmounted(() => {
     <mouse v-if="y < 80"/>
   </transition>
   <detail :name="bookName"/>
-  <custom-modal v-model:visible="showIndex" width="480px">
+  <custom-modal v-model:visible="showIndex" width="30%">
     <contents :name="bookName"/>
   </custom-modal>
   <custom-modal v-model:visible="showIntro">
