@@ -28,8 +28,8 @@
     height: 40px;
     border-radius: 32px;
     border: 2px solid $acc-red-dark;
-
     margin-bottom: 4px;
+     animation: mouse linear 1s infinite;
 
     &::before {
       display: block;
@@ -38,13 +38,23 @@
       height: 8px;
       border-radius: 4px;
       background: $acc-red-dark;
-      animation: mouse linear .6s infinite;
+      animation: point linear .6s infinite;
     }
 
+    @keyframes point {
+      0%, 100% {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     @keyframes mouse {
       0%, 100% {
-        opacity: .4;
-        transform: translateY(4px);
+        opacity: .8;
+        transform: translateY(2px);
       }
       50% {
         opacity: 1;

@@ -21,6 +21,7 @@ getBooksData('contents').then((res) => {
   <div class="img-preload">
     <template v-for="name in bookNames">
       <img :src="`./assets/bookTitle/title_${name}.svg`">
+      <img :src="`./assets/bookTitle/illus_${name}.svg`">
     </template>
   </div>
 </template>

@@ -43,30 +43,22 @@ onUnmounted(() => {
 </script>
 <template>
   <custom-cursor/>
+  <top-menu
+      :is-over="y > 480"
+      @showIntro="showIntro = true"
+      @showContents="showIndex = true"
+  />
+  <cover/>
+  <transition name="fadeIn">
+    <mouse v-if="y < 80"/>
+  </transition>
+  <detail :name="bookName"/>
   <custom-modal v-model:visible="showIndex" width="480px">
     <contents :name="bookName"/>
   </custom-modal>
   <custom-modal v-model:visible="showIntro">
     <intro :name="bookName"/>
   </custom-modal>
-  <top-menu
-      :is-over="y > 480"
-      @showIntro="showIntro = true"
-      @showContents="showIndex = true"
-  />
-  <div class="smooth-wrapper" ref="main">
-    <div id="smooth-content">
-      <div class="cover">
-        <cover/>
-      </div>
-      <transition name="fadeIn">
-        <mouse v-if="y < 80"/>
-      </transition>
-      <div class="detail">
-        <detail :name="bookName"/>
-      </div>
-    </div>
-  </div>
 </template>
 <style scoped lang="scss">
 

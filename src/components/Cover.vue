@@ -5,7 +5,7 @@ import {useBookName} from "@/stores/bookName"
 const bookName = useBookName().bookName
 const baseUrl = ref('./assets/bookTitle/')
 const bookTitle = ref<string>(`${baseUrl.value}title_${bookName}.svg`)
-
+const bookIllus = ref<string>(`${baseUrl.value}illus_${bookName}.svg`)
 const motionOption = reactive({
   initial: {
     opacity: 0,
@@ -37,7 +37,9 @@ const motionOption = reactive({
         :initial="motionOption.initial"
         :enter="motionOption.enter"
         :delay="400"
-    ></div>
+    >
+      <img :src="bookIllus">
+    </div>
   </div>
 </template>
 
@@ -61,10 +63,11 @@ const motionOption = reactive({
   }
 
   .illustration {
-    width: 156px;
-    height: 280px;
-    background: url("../assets/img/illustration-cover.svg") no-repeat center right;
-    background-size: 100%;
+    height: 248px;
+
+    img {
+      height: 100%;
+    }
   }
 }
 </style>

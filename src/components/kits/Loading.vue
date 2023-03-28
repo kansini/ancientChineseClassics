@@ -8,8 +8,6 @@ const progress = ref<number>(0)
 const loadResources = async () => {
   const images = import.meta.globEager('@/assets/img/*.{svg,jpg}');
   const totalImages = Object.keys(images).length;
-  console.log('++++images++', images)
-  console.log('++++totalImages------++', totalImages)
   let loadedResources = 0;
   const totalResources = totalImages + 1; // Add 1 for the custom font
 
