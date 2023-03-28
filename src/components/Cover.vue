@@ -51,7 +51,7 @@ const motionOption = reactive({
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 16px;
 
   .title {
     //width: 64px;

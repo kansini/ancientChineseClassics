@@ -5,9 +5,7 @@ import {getBooksData} from "../api/getBooksData"
 import type {IContents} from "../interface"
 
 const $router = useRouter()
-const bookNames = ref<string[]>(
-    []
-)
+const bookNames = ref<string[]>([])
 
 
 getBooksData('contents').then((res) => {
