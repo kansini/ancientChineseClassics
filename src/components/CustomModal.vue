@@ -33,6 +33,7 @@ withDefaults(defineProps<IModal>(), {
   background: rgba(255, 255, 255, .2);
   height: 100vh;
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   z-index: 999;
   font-family: "carved";
   box-shadow: -4px 0 16px 0 rgba(0,0,0,.05);
