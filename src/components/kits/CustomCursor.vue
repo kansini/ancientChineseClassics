@@ -114,6 +114,7 @@ onMounted(() => {
     height: 144px;
     background: rgba(255, 255, 255, .1);
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     transition: width ease-in-out .3s, height ease-in-out .3s;
 
     & + .custom-cursor-inner {

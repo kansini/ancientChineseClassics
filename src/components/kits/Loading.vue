@@ -88,6 +88,7 @@ const motionOption = reactive({
   height: 100vh;
   background: $acc-blue-dark;
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   position: absolute;
   left: 0;
   top: 0;

@@ -65,6 +65,7 @@ const menuData = reactive<IMenu[]>([
   &.is-over {
     background: rgba(255, 255, 255, .2);
     backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
   }
 }
 </style>
