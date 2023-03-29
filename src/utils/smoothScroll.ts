@@ -1,6 +1,6 @@
-export const smoothScroll = (id) => {
+export const smoothScroll = (id: string) => {
     let ele = document.getElementById(id)
-    ele.scrollIntoView({
+    !!ele && ele.scrollIntoView({
         behavior: 'smooth'
     })
 }

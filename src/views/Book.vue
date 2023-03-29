@@ -14,7 +14,7 @@ const showIntro = ref<boolean>(false)
 const showContents = ref<boolean>(false)
 
 const {x, y} = useWindowScroll()
-const handleClickNav = (id) => {
+const handleClickNav = (id:string) => {
   smoothScroll(id)
   setTimeout(() => {
     showContents.value = false

@@ -17,7 +17,7 @@ const contentsData = ref<IContentsItem[]>([])
 const props = withDefaults(defineProps<IProps>(), {
   name: "山海经"
 })
-const current = ref<string>(null)
+const current = ref<string>('')
 getBooksData(props.name).then((res) => contentsData.value = res.data.articles)
 
 const handleClick = (title: string) => {
