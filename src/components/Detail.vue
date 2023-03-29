@@ -34,8 +34,12 @@ getBooksData(props.name).then((res) => booksData.value = res.data)
 </script>
 
 <template>
-  <div v-for="article in booksData.articles" class="article item">
-    <div class="title" :id="toPinyin(article.title)">
+  <div
+      v-for="article in booksData.articles"
+      class="article item"
+      :id="toPinyin(article.title)"
+  >
+    <div class="title">
       <div class="title-item">{{ name }}</div>
       <div class="title-item">{{ article.title }}</div>
     </div>

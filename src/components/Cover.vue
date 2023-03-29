@@ -24,8 +24,6 @@ const motionOption = reactive({
 </script>
 <template>
   <div class="cover">
-    <deco style="left: -128px;top: -20px;"/>
-    <deco :width="280" style="right: 0px; bottom: 16px;"/>
     <div class="title"
          v-motion
          :initial="motionOption.initial"

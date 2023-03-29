@@ -25,20 +25,22 @@ const props = withDefaults(defineProps<IProps>(), {
 getBooksData(props.name).then((res) => introData.value = res.data)
 </script>
 <template>
-  <div class="acc-intro">
-    <div class="acc-intro-header">
-      <p>{{ introData.name }}</p>
-      <p>
-        {{ introData.author }}
-        <span>【{{ introData.dynasty }}】</span>
-      </p>
+  <custom-modal v-bind="$attrs">
+    <div class="acc-intro">
+      <div class="acc-intro-header">
+        <p>{{ introData.name }}</p>
+        <p>
+          {{ introData.author }}
+          <span>【{{ introData.dynasty }}】</span>
+        </p>
+      </div>
+      <div class="acc-intro-content">
+        <p v-for="p in introData.description">
+          {{ p }}
+        </p>
+      </div>
     </div>
-    <div class="acc-intro-content">
-      <p v-for="p in introData.description">
-        {{ p }}
-      </p>
-    </div>
-  </div>
+  </custom-modal>
 </template>
 
 <style lang="scss" scoped>

@@ -1,50 +1,51 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref, computed, reactive} from "vue";
+import {onMounted, onUnmounted, ref, nextTick} from "vue";
 import gsap from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
+// import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useWindowScroll} from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {useBookName} from "@/stores/bookName";
-import {smoothScroll} from "@/utils/smoothScroll";
+import {smoothScrollTo} from "@/utils/smoothScroll";
+// gsap.registerPlugin(ScrollTrigger);
 
 const router = useRouter()
 const bookName = useBookName().bookName
-
 const showIntro = ref<boolean>(false)
 const showContents = ref<boolean>(false)
-
 const {x, y} = useWindowScroll()
-const handleClickNav = (id:string) => {
-  smoothScroll(id)
+const handleClickNav = (id: string) => {
+  smoothScrollTo(id)
   setTimeout(() => {
     showContents.value = false
-  })
+  }, 200)
 }
-gsap.registerPlugin(ScrollTrigger);
 const main = ref();
 const ctx = ref();
 
-onMounted(() => {
-  ctx.value = gsap.context(() => {
-    // ScrollTrigger.create({
-    //   trigger: '.cover',
-    //   pin: true,
-    //   start: 'center center',
-    //   end: '+=240'
-    // });
-    // gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: ".cover",
-    //     start: "center center",
-    //     end: "bottom top",
-    //     scrub: true,
-    //     // pin: true
-    //   }
-    // }).to(".cover", {rotateY: -180})
-  }, main.value);
+onMounted(async () => {
+  await nextTick()
+  const articles = await document.querySelectorAll('.article')
+  console.log('articles', articles)
+  // ctx.value = gsap.context(() => {
+  //   ScrollTrigger.create({
+  //     trigger: '.cover',
+  //     pin: true,
+  //     start: 'center center',
+  //     end: '+=240'
+  //   });
+  //   gsap.timeline({
+  //     scrollTrigger: {
+  //       trigger: ".cover",
+  //       start: "center center",
+  //       end: "bottom top",
+  //       scrub: true,
+  //       // pin: true
+  //     }
+  //   }).to(".cover", {rotateY: -180})
+  // }, main.value);
 });
 onUnmounted(() => {
-  ctx.value.revert();
+  // ctx.value.revert();
 });
 </script>
 <template>
@@ -60,13 +61,10 @@ onUnmounted(() => {
     <mouse v-if="y < 80"/>
   </transition>
   <detail :name="bookName"/>
-  <custom-modal v-model:visible="showContents" width="30%">
-    <contents :name="bookName" @click="handleClickNav"/>
-  </custom-modal>
-  <custom-modal v-model:visible="showIntro">
-    <intro :name="bookName"/>
-  </custom-modal>
+  <contents
+      :name="bookName"
+      v-model:visible="showContents"
+      width="50%"
+      @click="handleClickNav"/>
+  <intro :name="bookName" v-model:visible="showIntro"/>
 </template>
-<style scoped lang="scss">
-
-</style>

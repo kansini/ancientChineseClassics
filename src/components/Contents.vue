@@ -28,18 +28,20 @@ const handleClick = (title: string) => {
 
 </script>
 <template>
-  <div class="contents-title">·— 目录 —·</div>
-  <div class="contents-container">
-    <template v-for="item in contentsData">
-      <div
-          class="contents-item"
-          :class="{'is-active':current === toPinyin(item.title)}"
-          @click="handleClick(item.title)"
-      >
-        {{ item.title }}
-      </div>
-    </template>
-  </div>
+  <custom-modal v-bind="$attrs">
+    <div class="contents-title">·— 目录 —·</div>
+    <div class="contents-container">
+      <template v-for="item in contentsData">
+        <div
+            class="contents-item"
+            :class="{'is-active':current === toPinyin(item.title)}"
+            @click="handleClick(item.title)"
+        >
+          {{ item.title }}
+        </div>
+      </template>
+    </div>
+  </custom-modal>
 </template>
 <style lang="scss" scoped>
 .contents-title {
