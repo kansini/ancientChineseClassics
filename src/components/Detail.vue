@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {getBooksData} from "@/api/getBooksData";
-import {NUM} from "@/utils/num";
+import {toPinyin} from '@/utils/toPinyin';
 
 
 interface IBooksData {
@@ -30,23 +30,17 @@ const booksData = ref<IBooksData>({
 })
 getBooksData(props.name).then((res) => booksData.value = res.data)
 
-const getVolNum = (index: number) => {
-  return index > 0 && index < 7 ? "上篇" : (index > 6 && index < 14 ? "中篇" : "下篇");
-}
+
 </script>
 
 <template>
-  <div v-for="(article,index) in booksData.articles" class="article item">
-    <div class="title">
-      <div class="title-item">{{ props.name }}</div>
-<!--      <div class="title-item" v-if="index >0">-->
-<!--        {{ getVolNum(index) }}-->
-<!--      </div>-->
-<!--      <div class="title-item">{{ NUM[index+1] }}</div>-->
+  <div v-for="article in booksData.articles" class="article item">
+    <div class="title" :id="toPinyin(article.title)">
+      <div class="title-item">{{ name }}</div>
       <div class="title-item">{{ article.title }}</div>
     </div>
     <div class="vol">
-      <div class="graph" v-for="(p,i) in article.content">
+      <div class="graph" v-for="p in article.content">
         {{ p }}
       </div>
     </div>

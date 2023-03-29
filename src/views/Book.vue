@@ -1,19 +1,25 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref, computed, reactive} from 'vue';
-import gsap from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
-import {useWindowScroll} from '@vueuse/core';
+import {onMounted, onUnmounted, ref, computed, reactive} from "vue";
+import gsap from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {useWindowScroll} from "@vueuse/core";
 import {useRouter} from "vue-router";
-import {useBookName} from '@/stores/bookName';
+import {useBookName} from "@/stores/bookName";
+import {smoothScroll} from "@/utils/smoothScroll";
 
 const router = useRouter()
 const bookName = useBookName().bookName
 
 const showIntro = ref<boolean>(false)
-const showIndex = ref<boolean>(false)
+const showContents = ref<boolean>(false)
 
 const {x, y} = useWindowScroll()
-
+const handleClickNav = (id) => {
+  smoothScroll(id)
+  setTimeout(() => {
+    showContents.value = false
+  })
+}
 gsap.registerPlugin(ScrollTrigger);
 const main = ref();
 const ctx = ref();
@@ -47,15 +53,15 @@ onUnmounted(() => {
   <top-menu
       :is-over="y > 480"
       @showIntro="showIntro = true"
-      @showContents="showIndex = true"
+      @showContents="showContents = true"
   />
   <cover/>
   <transition name="fadeIn">
     <mouse v-if="y < 80"/>
   </transition>
   <detail :name="bookName"/>
-  <custom-modal v-model:visible="showIndex" width="30%">
-    <contents :name="bookName"/>
+  <custom-modal v-model:visible="showContents" width="30%">
+    <contents :name="bookName" @click="handleClickNav"/>
   </custom-modal>
   <custom-modal v-model:visible="showIntro">
     <intro :name="bookName"/>

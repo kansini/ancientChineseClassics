@@ -17,7 +17,7 @@ withDefaults(defineProps<IModal>(), {
 <template>
   <click-outside @click-outside="handleClose">
     <transition name="fadeRight">
-      <div class="acc-modal-container" v-if="visible" :style="{width:width}">
+      <div class="acc-modal-container" v-show="visible" :style="{width:width}">
         <menu-item @click="handleClose" name="退" en="Exit"/>
         <slot></slot>
       </div>
