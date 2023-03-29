@@ -36,20 +36,20 @@ const titleMotionOption = reactive({
 const loaded = ref(false)
 const cursorSize = ref('')
 const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
-const loading = ref(true)
-const getData = async () => {
-  const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
-  try {
-    const loadedFont = await font.load();
-    document.fonts.add(loadedFont);
-    setTimeout(() => {
-      loading.value = false
-    })
-  } catch (error) {
-    console.error('Font not loaded:', error);
-  }
-}
-getData()
+// const loading = ref(true)
+// const getData = async () => {
+//   const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
+//   try {
+//     const loadedFont = await font.load();
+//     document.fonts.add(loadedFont);
+//     setTimeout(() => {
+//       loading.value = false
+//     })
+//   } catch (error) {
+//     console.error('Font not loaded:', error);
+//   }
+// }
+// getData()
 
 const handleMouseEnter = (text: string) => {
   cursorSize.value = "large"

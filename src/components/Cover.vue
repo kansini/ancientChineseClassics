@@ -9,21 +9,23 @@ const bookIllus = ref<string>(`${baseUrl.value}illus_${bookName}.svg`)
 const motionOption = reactive({
   initial: {
     opacity: 0,
-    scale: 10,
-    filter: 'blur(10px)',
+    scale: 4,
+    filter: 'blur(5px)',
   },
   enter: {
     opacity: 1,
     scale: 1,
     filter: 'blur(0px)',
     transition: {
-      duration: 400
+      duration: 200
     }
   }
 })
 </script>
 <template>
   <div class="cover">
+    <deco style="left: -128px;top: -20px;"/>
+    <deco :width="280" style="right: 0px; bottom: 16px;"/>
     <div class="title"
          v-motion
          :initial="motionOption.initial"
@@ -36,7 +38,7 @@ const motionOption = reactive({
         v-motion
         :initial="motionOption.initial"
         :enter="motionOption.enter"
-        :delay="400"
+        :delay="200"
     >
       <img :src="bookIllus">
     </div>
@@ -52,6 +54,7 @@ const motionOption = reactive({
   align-items: center;
   justify-content: center;
   gap: 16px;
+  overflow-x: hidden;
 
   .title {
     //width: 64px;

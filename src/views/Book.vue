@@ -42,6 +42,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
+  <back-to-top :visible="y > 300"/>
   <custom-cursor/>
   <top-menu
       :is-over="y > 480"
@@ -61,24 +62,5 @@ onUnmounted(() => {
   </custom-modal>
 </template>
 <style scoped lang="scss">
-
-
-#smooth-content {
-  overflow: visible;
-  width: 100%;
-  background: url("../assets/img/main_bg.jpg");
-  background-size: 100%;
-  overflow-x: hidden;
-}
-
-.cover {
-  transform-origin: left center;
-  will-change: transform;
-}
-
-.detail {
-  mix-blend-mode: color-burn;
-  will-change: transform;
-}
 
 </style>

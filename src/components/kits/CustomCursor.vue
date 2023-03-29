@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue'
+import {onMounted, onUnmounted, ref} from 'vue'
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 import gsap from 'gsap'
 
@@ -35,6 +35,9 @@ const onMouseMove = (e: any) => {
 }
 onMounted(() => {
   document.addEventListener('mousemove', onMouseMove)
+})
+onUnmounted(() => {
+  document.removeEventListener('mousemove', onMouseMove)
 })
 
 </script>
