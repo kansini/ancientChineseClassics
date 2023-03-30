@@ -29,7 +29,7 @@ const handleClick = (title: string) => {
 </script>
 <template>
   <custom-modal v-bind="$attrs">
-    <div class="contents-title">·— 目录 —·</div>
+    <div class="contents-title">·—· 目录 ·—·</div>
     <div class="contents-container">
       <template v-for="item in contentsData">
         <div

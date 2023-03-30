@@ -64,7 +64,7 @@ onUnmounted(() => {
   <contents
       :name="bookName"
       v-model:visible="showContents"
-      width="50%"
+      width="30%"
       @click="handleClickNav"/>
   <intro :name="bookName" v-model:visible="showIntro"/>
 </template>

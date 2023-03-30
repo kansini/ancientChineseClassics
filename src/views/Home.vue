@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import BookShelf from "../components/BookShelf.vue"
-import Loading from "../components/kits/Loading.vue"
-import {ref, reactive} from "vue";
+import {ref, reactive, onMounted} from "vue";
 
 const motionOption = reactive({
   initial: {
@@ -36,20 +34,19 @@ const titleMotionOption = reactive({
 const loaded = ref(false)
 const cursorSize = ref('')
 const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
-// const loading = ref(true)
 // const getData = async () => {
 //   const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
 //   try {
 //     const loadedFont = await font.load();
 //     document.fonts.add(loadedFont);
-//     setTimeout(() => {
-//       loading.value = false
-//     })
+//     loaded.value = true
 //   } catch (error) {
 //     console.error('Font not loaded:', error);
 //   }
 // }
-// getData()
+// onMounted(() => {
+//   getData()
+// })
 
 const handleMouseEnter = (text: string) => {
   cursorSize.value = "large"
