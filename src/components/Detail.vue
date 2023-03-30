@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, onMounted} from "vue";
 import {getBooksData} from "@/api/getBooksData";
-import {toPinyin} from '@/utils/toPinyin';
+import {toPinyin} from "@/utils/toPinyin";
+import {setLS, getLS} from "@/utils/ls";
 
 
 interface IBooksData {
@@ -28,9 +29,12 @@ const booksData = ref<IBooksData>({
   description: '',
   articles: []
 })
-getBooksData(props.name).then((res) => booksData.value = res.data)
 
-
+getBooksData(props.name).then(async (res) => {
+  const bookName = toPinyin(props.name)
+  await setLS(bookName, res.data)
+  booksData.value = getLS(bookName) || res.data
+})
 </script>
 
 <template>

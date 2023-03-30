@@ -4,6 +4,7 @@ import {useRouter} from "vue-router"
 import {getBooksData} from "../api/getBooksData"
 import {useBookName} from '@/stores/bookName';
 import type {IContents} from "../interface"
+import {setLS, getLS} from "@/utils/ls";
 
 const motionOption = reactive({
   initial: {
@@ -32,7 +33,13 @@ const handleClickBook = (bookName: string) => {
   router.push('book')
   useBookName().bookName = bookName
 }
-getBooksData('contents').then((res) => booksData.value = res.data)
+getBooksData('contents').then(async (res) => {
+      const data = res.data
+      await setLS('contents', data)
+      booksData.value = getLS('contents') || data
+    }
+)
+// const shelfData = getLS('contents') || booksData
 </script>
 <template>
   <div class="book-shelf">
