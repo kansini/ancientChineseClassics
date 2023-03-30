@@ -21,7 +21,7 @@ interface IProps {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  name: "山海经"
+  name: ""
 })
 
 const booksData = ref<IBooksData>({
@@ -29,12 +29,22 @@ const booksData = ref<IBooksData>({
   description: '',
   articles: []
 })
-
-getBooksData(props.name).then(async (res) => {
-  const bookName = toPinyin(props.name)
-  await setLS(bookName, res.data)
-  booksData.value = getLS(bookName) || res.data
+const bookName = toPinyin(props.name)
+const getData = () => {
+  if (getLS(bookName)) {
+    booksData.value = getLS(bookName)
+  } else {
+    getBooksData(props.name).then(async (res) => {
+      const bookName = toPinyin(props.name)
+      await setLS(bookName, res.data)
+      booksData.value = res.data
+    })
+  }
+}
+onMounted(async () => {
+  await getData()
 })
+
 </script>
 
 <template>
