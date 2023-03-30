@@ -51,11 +51,11 @@ onUnmounted(() => {
 <template>
   <back-to-top :visible="y > 300"/>
   <custom-cursor/>
-<!--  <top-menu-->
-<!--      :is-over="y > 480"-->
-<!--      @showIntro="showIntro = true"-->
-<!--      @showContents="showContents = true"-->
-<!--  />-->
+  <top-menu
+      :is-over="y > 480"
+      @showIntro="showIntro = true"
+      @showContents="showContents = true"
+  />
   <cover/>
   <transition name="fadeIn">
     <mouse v-if="y < 80"/>
