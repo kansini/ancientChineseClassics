@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import {ref, reactive} from "vue";
+import {ref, reactive, onMounted} from "vue";
 import {useRouter} from "vue-router"
 import {getBooksData} from "../api/getBooksData"
 import {useBookName} from '@/stores/bookName';
 import type {IContents} from "../interface"
 import {setLS, getLS} from "@/utils/ls";
+import {toPinyin} from "@/utils/toPinyin";
 
 const motionOption = reactive({
   initial: {
@@ -33,12 +34,20 @@ const handleClickBook = (bookName: string) => {
   router.push('book')
   useBookName().bookName = bookName
 }
-getBooksData('contents').then(async (res) => {
-      const data = res.data
-      await setLS('contents', data)
-      booksData.value = getLS('contents') || data
-    }
-)
+const getData = () => {
+  if (getLS('contents')) {
+    booksData.value = getLS('contents')
+  } else {
+    getBooksData(props.name).then(async (res) => {
+      await setLS('contents', res.data)
+      booksData.value = res.data
+    })
+  }
+}
+onMounted(async () => {
+  await getData()
+})
+
 // const shelfData = getLS('contents') || booksData
 </script>
 <template>
