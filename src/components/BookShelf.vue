@@ -38,7 +38,7 @@ const getData = () => {
   if (getLS('contents')) {
     booksData.value = getLS('contents')
   } else {
-    getBooksData(props.name).then(async (res) => {
+    getBooksData('contents').then(async (res) => {
       await setLS('contents', res.data)
       booksData.value = res.data
     })
