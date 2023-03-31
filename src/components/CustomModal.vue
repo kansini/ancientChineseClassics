@@ -7,6 +7,7 @@ const handleClose = () => {
 interface IModal {
   visible: boolean
   width?: string | number
+  padding?: string | number
 }
 
 withDefaults(defineProps<IModal>(), {
@@ -17,7 +18,11 @@ withDefaults(defineProps<IModal>(), {
 <template>
   <click-outside @click-outside="handleClose">
     <transition name="fadeRight">
-      <div class="acc-modal-container" v-if="visible" :style="{width:width}">
+      <div
+          class="acc-modal-container"
+          v-if="visible"
+          :style="{width:width,padding:padding}"
+      >
         <menu-item @click="handleClose" name="退" en="Exit"/>
         <slot></slot>
       </div>
@@ -36,7 +41,7 @@ withDefaults(defineProps<IModal>(), {
   -webkit-backdrop-filter: blur(24px);
   z-index: 999;
   font-family: "carved";
-  box-shadow: -4px 0 16px 0 rgba(0,0,0,.05);
+  box-shadow: -4px 0 16px 0 rgba(0, 0, 0, .05);
 
   .menu-item {
     position: absolute;

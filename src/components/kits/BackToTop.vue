@@ -39,7 +39,7 @@ const handleMouseleave = () => {
   align-items: center;
   justify-content: center;
   position: fixed;
-  right: 16px;
+  left: 16px;
   bottom: 16px;
   width: 56px;
   height: 56px;

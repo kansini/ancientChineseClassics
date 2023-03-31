@@ -13,11 +13,9 @@ const bookName = useBookName().bookName
 const showIntro = ref<boolean>(false)
 const showContents = ref<boolean>(false)
 const {x, y} = useWindowScroll()
-const handleClickNav = (id: string) => {
-  smoothScrollTo(id)
-  setTimeout(() => {
-    showContents.value = false
-  }, 200)
+const handleClickNav = async (id: string) => {
+  await smoothScrollTo(id)
+  showContents.value = false
 }
 const main = ref();
 const ctx = ref();
@@ -64,7 +62,6 @@ onUnmounted(() => {
   <contents
       :name="bookName"
       v-model:visible="showContents"
-      width="30%"
       @click="handleClickNav"/>
   <intro :name="bookName" v-model:visible="showIntro"/>
 </template>
