@@ -5,7 +5,6 @@ import {getBooksData} from "../api/getBooksData"
 import {useBookName} from '@/stores/bookName';
 import type {IContents} from "../interface"
 import {setLS, getLS} from "@/utils/ls";
-import {toPinyin} from "@/utils/toPinyin";
 
 const motionOption = reactive({
   initial: {

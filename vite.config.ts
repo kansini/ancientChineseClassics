@@ -4,6 +4,7 @@ import Components from 'unplugin-vue-components/vite'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 import vue from '@vitejs/plugin-vue'
 import compression from 'vite-plugin-compression'
+import {terser} from 'rollup-plugin-terser';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +16,7 @@ export default defineConfig({
         compression({
             algorithm: 'gzip',
             ext: '.gz',
-        }),
+        })
     ],
     server: {
         host: '0.0.0.0'
@@ -42,8 +43,19 @@ export default defineConfig({
                     vueRouter: ['vue-router'],
                     pinyin: ['pinyin'],
                     lottieWeb: ['lottie-web'],
+                    axios: ['axios'],
                 }
             }
-        }
+        },
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+            },
+            format: {
+                comments: false,
+            },
+        },
     }
 })
