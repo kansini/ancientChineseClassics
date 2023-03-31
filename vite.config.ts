@@ -31,6 +31,19 @@ export default defineConfig({
                 additionalData: '@import"@/assets/scss/index.scss";'
             }
         }
+    },
+    build: {
+        chunkSizeWarningLimit: 2000, // Adjusted chunk size limit for warning
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    gsap: ['gsap'],
+                    pinia: ['pinia'],
+                    vueRouter: ['vue-router'],
+                    pinyin: ['pinyin'],
+                    lottieWeb: ['lottie-web'],
+                }
+            }
+        }
     }
-
 })
