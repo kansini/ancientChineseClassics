@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {ref} from "vue";
+import {ref, computed} from "vue";
 import {getBooksData} from "@/api/getBooksData";
 import {toPinyin} from "@/utils/toPinyin";
-import Nzh from "nzh";
+import {NUM} from "@/utils/num";
 
 const emits = defineEmits(['click'])
 
@@ -28,7 +28,15 @@ const handleClick = (title: string) => {
   emits('click', pinyinText)
   current.value = pinyinText
 }
-
+const getVolNum = (index: number) => {
+  let numArr = (index + 1).toString().split('')
+  if (numArr.length === 1) numArr.unshift('0')
+  let numCnArr = numArr.map((item: string) => {
+    return NUM[parseInt(item)]
+  })
+  const volNum = numCnArr.join('')
+  return volNum
+}
 </script>
 <template>
   <custom-modal v-bind="$attrs" class="contents-modal">
@@ -43,7 +51,7 @@ const handleClick = (title: string) => {
               :class="{'is-active':current === toPinyin(item.title)}"
               @click="handleClick(item.title)"
           >
-            <div class="contents-item-num">{{ Nzh.cn.encodeS(index + 1), {tenMin: true} }}</div>
+            <div class="contents-item-num">{{ getVolNum(index) }}</div>
             {{ item.title }}
           </div>
         </template>
@@ -61,10 +69,10 @@ const handleClick = (title: string) => {
     display: flex;
     flex-direction: row-reverse;
     height: 100%;
-    border-top: 4px solid $acc-gold;
-    border-right: 4px solid $acc-gold;
-    border-bottom: 4px solid $acc-gold;
-    border-left: 3px solid $acc-gold;
+    border-top: 4px solid $acc-red;
+    border-right: 4px solid $acc-red;
+    border-bottom: 4px solid $acc-red;
+    border-left: 3px solid $acc-red;
 
     .contents-title {
       display: flex;
@@ -123,12 +131,13 @@ const handleClick = (title: string) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          background: $acc-red-dark;
+          background: $acc-gold-dark;
           color: #fff;
-          border-radius: 40px;
-          font-size: 12px;
+          border-radius: 16px;
+          font-size: 14px;
           padding: 8px 4px;
           margin-bottom: 8px;
+          height: 72px;
           transition: all ease-in .3s;
         }
 
@@ -140,7 +149,7 @@ const handleClick = (title: string) => {
 
           .contents-item-num {
             background: $acc-gold-light;
-            color: $acc-red-dark;
+            color: $acc-gold-dark;
           }
         }
       }
