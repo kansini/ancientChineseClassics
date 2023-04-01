@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import {ref} from "vue";
 import {getBooksData} from "@/api/getBooksData";
-import {toPinyin} from '@/utils/toPinyin';
+import {toPinyin} from "@/utils/toPinyin";
+import Nzh from "nzh";
 
 const emits = defineEmits(['click'])
 
@@ -30,18 +31,19 @@ const handleClick = (title: string) => {
 
 </script>
 <template>
-  <custom-modal v-bind="$attrs" padding="0 40px;">
+  <custom-modal v-bind="$attrs" class="contents-modal">
     <div class="contents-container">
       <div class="contents-title">
         <div class="contents-title-inner">{{ name }}</div>
       </div>
       <div class="contents-item-container">
-        <template v-for="item in contentsData">
+        <template v-for="(item,index) in contentsData">
           <div
               class="contents-item"
               :class="{'is-active':current === toPinyin(item.title)}"
               @click="handleClick(item.title)"
           >
+            <div class="contents-item-num">{{ Nzh.cn.encodeS(index + 1), {tenMin: true} }}</div>
             {{ item.title }}
           </div>
         </template>
@@ -49,74 +51,103 @@ const handleClick = (title: string) => {
     </div>
   </custom-modal>
 </template>
-<style lang="scss" scoped>
-.contents-container {
-  display: flex;
-  flex-direction: row-reverse;
-  margin: 16px 0;
-  //margin-top: 40px;
-  height: 100%;
+<style lang="scss">
+.contents-modal {
+  .acc-modal-container {
+    padding: 16px 64px;
+  }
 
-  .contents-title {
+  .contents-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row-reverse;
     height: 100%;
-    padding: 0 16px;
-    font-size: 24px;
-    color: $acc-red-dark;
-    writing-mode: vertical-rl;
-    border-left: 1px solid $acc-gold;
-    border-right: 1px solid $acc-gold;
+    border-top: 4px solid $acc-gold;
+    border-right: 4px solid $acc-gold;
+    border-bottom: 4px solid $acc-gold;
+    border-left: 3px solid $acc-gold;
 
-    .contents-title-inner {
+    .contents-title {
       display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: center;
-
-      &::before,
-      &::after {
-        display: block;
-        content: '';
-        width: 32px;
-        height: 32px;
-        background: $acc-red-dark;
-        -webkit-clip-path: polygon(50% 88%, 100% 66%, 100% 100%, 0 100%, 0 66%);
-        clip-path: polygon(50% 88%, 100% 60%, 100% 100%, 0 100%, 0 60%);
-      }
-
-      &::before {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  .contents-item-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    max-height: calc(100vh - 16px);
-    overflow-y: auto;
-
-    .contents-item {
-      display: flex;
-      align-items: center;
-      border-left: 1px solid $acc-gold;
-      font-size: 18px;
+      height: 100%;
+      font-size: 24px;
+      color: $acc-red-dark;
       writing-mode: vertical-rl;
-      padding: 16px;
-      transition: all ease-in .3s;
-      cursor: pointer;
+      border-left: 1px solid $acc-gold;
 
-      &:hover,
-      &.is-active {
-        border-left: 1px solid transparent;
-        background: $acc-red-dark;
-        color: #fff;
+      .contents-title-inner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+
+        &::before,
+        &::after {
+          display: block;
+          content: '';
+          width: 32px;
+          height: 32px;
+          background: $acc-red-dark;
+          -webkit-clip-path: polygon(50% 88%, 100% 66%, 100% 100%, 0 100%, 0 66%);
+          clip-path: polygon(50% 88%, 100% 60%, 100% 100%, 0 100%, 0 60%);
+        }
+
+        &::before {
+          transform: rotate(180deg);
+        }
       }
     }
 
+    .contents-item-container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row-reverse;
+      max-height: calc(100vh - 16px);
+      overflow-y: auto;
+      background-image: linear-gradient(to right, $acc-gold 1px, transparent 1px);
+      background-size: 48px 1px;
+
+      .contents-item {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        writing-mode: vertical-rl;
+        padding: 16px 0;
+        width: 48px;
+        transition: all ease-in .3s;
+        cursor: pointer;
+
+        .contents-item-num {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: $acc-red-dark;
+          color: #fff;
+          border-radius: 40px;
+          font-size: 12px;
+          padding: 8px 4px;
+          margin-bottom: 8px;
+          transition: all ease-in .3s;
+        }
+
+
+        &:hover,
+        &.is-active {
+          background: $acc-red-dark;
+          color: $acc-gold-light;
+
+          .contents-item-num {
+            background: $acc-gold-light;
+            color: $acc-red-dark;
+          }
+        }
+      }
+
+    }
   }
 }
+
+
 </style>

@@ -39,11 +39,17 @@ const handleMouseleave = () => {
   align-items: center;
   justify-content: center;
   position: fixed;
-  left: 16px;
+  right: 16px;
   bottom: 16px;
   width: 56px;
   height: 56px;
   border-radius: 32px;
   background: $acc-gold-light;
+  mix-blend-mode: hard-light;
+  z-index: 999;
+
+  .menu-item{
+    color: $acc-red;
+  }
 }
 </style>

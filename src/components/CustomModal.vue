@@ -40,7 +40,6 @@ withDefaults(defineProps<IModal>(), {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   z-index: 999;
-  font-family: "carved";
   box-shadow: -4px 0 16px 0 rgba(0, 0, 0, .05);
 
   .menu-item {
