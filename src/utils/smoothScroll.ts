@@ -1,6 +1,10 @@
 export const smoothScrollTo = (id: string) => {
-    let ele = document.getElementById(id)
-    !!ele && ele.scrollIntoView({
-        behavior: 'smooth'
+    const ele = document.getElementById(id)
+    const offset = 56
+    const top = ele ? ele.offsetTop - offset : 0
+    console.log(top)
+    window.scrollTo({
+        behavior: 'smooth',
+        top: top
     })
 }

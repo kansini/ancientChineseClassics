@@ -145,8 +145,15 @@ const getId = (index: number) => {
           transition: all ease-in .3s;
         }
 
+        &:hover {
+          color: $acc-red-dark;
 
-        &:hover,
+          .contents-item-num {
+            background: $acc-red-dark;
+            color: #fff;
+          }
+        }
+
         &.is-active {
           background: $acc-red-dark;
           color: $acc-gold-light;
