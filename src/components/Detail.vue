@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
 import {getBooksData} from "@/api/getBooksData";
-import {toPinyin} from "@/utils/toPinyin";
+import {PINYIN} from "@/enum/pinyin";
 import {setLS, getLS} from "@/utils/ls";
 
 
@@ -29,17 +29,20 @@ const booksData = ref<IBooksData>({
   description: '',
   articles: []
 })
-const bookName = toPinyin(props.name)
+const pinyin: Record<string, string> = PINYIN
+const bookName = pinyin[props.name]
 const getData = () => {
   if (getLS(bookName)) {
     booksData.value = getLS(bookName)
   } else {
     getBooksData(props.name).then(async (res) => {
-      const bookName = toPinyin(props.name)
       await setLS(bookName, res.data)
       booksData.value = res.data
     })
   }
+}
+const getId = (index: number) => {
+  return `${bookName}${index}`
 }
 onMounted(async () => {
   await getData()
@@ -49,9 +52,9 @@ onMounted(async () => {
 
 <template>
   <div
-      v-for="article in booksData.articles"
+      v-for="(article,index) in booksData.articles"
       class="article item"
-      :id="toPinyin(article.title)"
+      :id="getId(index)"
   >
     <div class="title">
       <div class="title-item">{{ name }}</div>

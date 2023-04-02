@@ -41,7 +41,6 @@ export default defineConfig({
                     gsap: ['gsap'],
                     pinia: ['pinia'],
                     vueRouter: ['vue-router'],
-                    pinyin: ['pinyin'],
                     lottieWeb: ['lottie-web'],
                     axios: ['axios'],
                 }

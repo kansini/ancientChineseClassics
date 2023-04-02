@@ -3,7 +3,6 @@ import {useRouter} from 'vue-router';
 import {ref} from 'vue';
 import {getBooksData} from "../api/getBooksData";
 import type {IContents} from "../interface";
-import {toPinyin} from "@/utils/toPinyin";
 
 const $router = useRouter()
 const bookNames = ref<string[]>([])

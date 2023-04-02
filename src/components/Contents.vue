@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import {ref, computed} from "vue";
 import {getBooksData} from "@/api/getBooksData";
-import {toPinyin} from "@/utils/toPinyin";
-import {NUM} from "@/utils/num";
+import {NUM} from "@/enum/num";
+import {PINYIN} from "@/enum/pinyin";
 
 const emits = defineEmits(['click'])
 
@@ -23,19 +23,23 @@ getBooksData(props.name).then((res) => {
   contentsData.value = res.data.articles
 })
 
-const handleClick = (title: string) => {
-  const pinyinText = toPinyin(title)
-  emits('click', pinyinText)
-  current.value = pinyinText
+const handleClick = (index: number) => {
+  const pinyin: Record<string, string> = PINYIN
+  const id = `${pinyin[props.name]}${index}`
+  emits('click', id)
+  current.value = id
 }
 const getVolNum = (index: number) => {
   let numArr = (index + 1).toString().split('')
-  if (numArr.length === 1) numArr.unshift('0')
   let numCnArr = numArr.map((item: string) => {
     return NUM[parseInt(item)]
   })
   const volNum = numCnArr.join('')
   return volNum
+}
+const getId = (index: number) => {
+  const pinyin: Record<string, string> = PINYIN
+  return `${pinyin[props.name]}${index}`
 }
 </script>
 <template>
@@ -48,8 +52,8 @@ const getVolNum = (index: number) => {
         <template v-for="(item,index) in contentsData">
           <div
               class="contents-item"
-              :class="{'is-active':current === toPinyin(item.title)}"
-              @click="handleClick(item.title)"
+              :class="{'is-active':current === getId(index)}"
+              @click="handleClick(index)"
           >
             <div class="contents-item-num">{{ getVolNum(index) }}</div>
             {{ item.title }}
