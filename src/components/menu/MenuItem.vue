@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import {defineEmits} from "vue";
 
 interface IMenuItem {
   name: string
   en: string
+  url?: string
 }
 
 const emit = defineEmits(['click'])
@@ -18,7 +18,17 @@ withDefaults(defineProps<IMenuItem>(),
 
 </script>
 <template>
-  <div class="menu-item" @click="handleClick">
+  <a
+      v-if="!!url"
+      class="menu-item"
+      @click="handleClick"
+      :href="url"
+      target="_blank"
+  >
+    <div>{{ name }}</div>
+    <div>{{ en }}</div>
+  </a>
+  <div v-else class="menu-item" @click="handleClick">
     <div>{{ name }}</div>
     <div>{{ en }}</div>
   </div>
@@ -32,7 +42,7 @@ withDefaults(defineProps<IMenuItem>(),
   align-items: center;
   font-family: "carved";
   color: $acc-gold;
-  font-size: 20px;
+  font-size: 18px;
 
   div {
     transition: all ease-in .4s;

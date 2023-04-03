@@ -4,9 +4,9 @@ defineProps({
     type: Boolean,
     default: true
   },
-  progress:{
-    type:Number,
-    default:0
+  progress: {
+    type: Number,
+    default: 0
   }
 })
 </script>
@@ -21,7 +21,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .progress-container {
-  width: 240px;
+  width: 90px;
   height: 42px;
   border-radius: 42px;
   //background: $acc-gold-light;

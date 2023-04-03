@@ -32,16 +32,22 @@ const menuData = reactive<IMenu[]>([
     method: () => {
       emit('showContents')
     }
-  }
+  },
+  // {
+  //   name: "仓",
+  //   en: "Github",
+  //   url: "https://github.com/kansini/tuibeitu"
+  // }
 ])
 </script>
 <template>
   <div class="top-menu" :class="{'is-over':isOver}">
     <template v-for="item in menuData">
       <menu-item
-          @click="item.method()"
+          @click="item.method && item.method()"
           :name="item.name"
           :en="item.en"
+          :url="item.url"
       />
     </template>
   </div>
@@ -52,7 +58,7 @@ const menuData = reactive<IMenu[]>([
   left: 0;
   top: 0;
   width: 100%;
-  height: 64px;
+  height: 48px;
   padding: 0 16px;
   background: rgba(255, 255, 255, 0);
   display: flex;

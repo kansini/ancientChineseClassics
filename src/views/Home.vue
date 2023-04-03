@@ -34,20 +34,6 @@ const titleMotionOption = reactive({
 const loaded = ref(false)
 const cursorSize = ref('')
 const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
-// const getData = async () => {
-//   const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)');
-//   try {
-//     const loadedFont = await font.load();
-//     document.fonts.add(loadedFont);
-//     loaded.value = true
-//   } catch (error) {
-//     console.error('Font not loaded:', error);
-//   }
-// }
-// onMounted(() => {
-//   getData()
-// })
-
 const handleMouseEnter = (text: string) => {
   cursorSize.value = "large"
   cursorText.value = `·中国典籍·${text}·中国典籍·${text}`
@@ -55,26 +41,24 @@ const handleMouseEnter = (text: string) => {
 </script>
 
 <template>
-  <div>
-    <custom-cursor
-        :size="cursorSize"
-        :text="cursorText"
-    />
-    <div class="home">
-      <div
-           class="title"
-           v-motion
-           :initial="titleMotionOption.initial"
-           :enter="titleMotionOption.enter"
-           :delay="500"
-      >
+  <custom-cursor
+      :size="cursorSize"
+      :text="cursorText"
+  />
+  <div class="home">
+    <div
+        class="title"
+        v-motion
+        :initial="titleMotionOption.initial"
+        :enter="titleMotionOption.enter"
+        :delay="500"
+    >
 
-      </div>
-      <book-shelf
-          @mouseenter="handleMouseEnter"
-          @mouseleave="cursorSize = ''"
-      />
     </div>
+    <book-shelf
+        @mouseenter="handleMouseEnter"
+        @mouseleave="cursorSize = ''"
+    />
   </div>
 </template>
 
@@ -92,7 +76,7 @@ const handleMouseEnter = (text: string) => {
     width: 344px;
     height: 72px;
     margin-bottom: 80px;
-    background:url("../assets/img/main_title.svg") no-repeat center;
+    background: url("../assets/img/main_title.svg") no-repeat center;
     background-size: cover;
   }
 }

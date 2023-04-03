@@ -2,7 +2,8 @@ export interface IMenu {
     name: string
     en: string
     icon?: string
-    method: (name?: string) => void
+    method?: (name?: string) => void
+    url?: string
 }
 
 export interface IMenuItem {
