@@ -10,5 +10,6 @@
   font-family: "carved";
   background: $acc-main-bg;
   background-size: 100%;
+  overflow-x: hidden;
 }
 </style>

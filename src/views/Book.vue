@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref} from "vue";
+import {nextTick, onMounted, onUnmounted, ref} from "vue";
 import gsap from "gsap";
-// import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useWindowScroll} from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {useBookName} from "@/stores/bookName";
 import {smoothScrollTo} from "@/utils/smoothScroll";
-// gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 const router = useRouter()
 const bookName = useBookName().bookName
@@ -21,29 +21,33 @@ const main = ref();
 const ctx = ref();
 
 onMounted(async () => {
-  // await nextTick()
-  // const articles = await document.querySelectorAll('.article')
-  // console.log('articles', articles)
-  // ctx.value = gsap.context(() => {
-  //   ScrollTrigger.create({
-  //     trigger: '.cover',
-  //     pin: true,
-  //     start: 'center center',
-  //     end: '+=240'
-  //   });
-  //   gsap.timeline({
-  //     scrollTrigger: {
-  //       trigger: ".cover",
-  //       start: "center center",
-  //       end: "bottom top",
-  //       scrub: true,
-  //       // pin: true
-  //     }
-  //   }).to(".cover", {rotateY: -180})
-  // }, main.value);
+  await nextTick()
+  const articles = await document.querySelectorAll('.article')
+  console.log('articles', articles)
+  ctx.value = gsap.context(() => {
+    ScrollTrigger.create({
+      trigger: '.cover',
+      pin: true,
+      start: 'center center',
+      end: '+=80'
+    });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".cover",
+        start: "center center",
+        end: "bottom top",
+        scrub: true,
+        // pin: true
+      }
+    }).to(".cover", {
+      opacity: 0,
+      scale: 8,
+      // translateY: 400
+    })
+  }, main.value);
 });
 onUnmounted(() => {
-  // ctx.value.revert();
+  ctx.value.revert();
 });
 </script>
 <template>

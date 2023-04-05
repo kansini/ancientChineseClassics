@@ -72,6 +72,6 @@ onMounted(async () => {
 .book-shelf {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: 16px;
 }
 </style>
