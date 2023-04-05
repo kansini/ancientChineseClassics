@@ -36,7 +36,7 @@ const menuData = reactive<IMenu[]>([
   // {
   //   name: "仓",
   //   en: "Github",
-  //   url: "https://github.com/kansini/tuibeitu"
+  //   url: "https://github.com/kansini/ancientChineseClassics"
   // }
 ])
 </script>
@@ -69,9 +69,11 @@ const menuData = reactive<IMenu[]>([
 
 
   &.is-over {
-    background: rgba(255, 255, 255, .2);
+    background: rgba(0, 0, 0, .8);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
+    mix-blend-mode: color-burn;
+    -webkit-mix-blend-mode: color-burn;
   }
 }
 </style>

@@ -50,7 +50,7 @@ onUnmounted(() => {
   <back-to-top :visible="y > 300"/>
   <custom-cursor/>
   <top-menu
-      :is-over="y > 480"
+      :is-over="y > 560 && !showContents && !showIntro"
       @showIntro="showIntro = true"
       @showContents="showContents = true"
   />

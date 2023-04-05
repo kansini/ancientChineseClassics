@@ -44,12 +44,11 @@ const handleMouseleave = () => {
   width: 56px;
   height: 56px;
   border-radius: 32px;
-  background: $acc-gold-light;
-  mix-blend-mode: hard-light;
+  background: rgba(0, 0, 0, .8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  mix-blend-mode: color-burn;
+  -webkit-mix-blend-mode: color-burn;
   z-index: 999;
-
-  .menu-item{
-    color: $acc-red;
-  }
 }
 </style>
