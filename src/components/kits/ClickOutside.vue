@@ -1,27 +1,15 @@
-<template>
-   <div ref="target">
-      <slot></slot>
-   </div>
-</template>
-
-<script lang="ts">
+<script lang="ts" setup>
 import {onClickOutside} from '@vueuse/core'
-import {ref, defineComponent} from 'vue'
+import {ref} from 'vue'
 
-export default defineComponent({
-   name: "ClickOutside",
-   setup(props, ctx) {
-      const target = ref(null)
-      onClickOutside(target, () => {
-         ctx.emit('click-outside')
-      })
-      return {
-         target
-      }
-   }
+const target = ref(null)
+const $emit = defineEmits(['click-outside'])
+onClickOutside(target, () => {
+  $emit('click-outside')
 })
 </script>
-
-<style scoped>
-
-</style>
+<template>
+  <div ref="target">
+    <slot></slot>
+  </div>
+</template>

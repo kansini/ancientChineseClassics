@@ -22,8 +22,6 @@ const ctx = ref();
 
 onMounted(async () => {
   await nextTick()
-  const articles = await document.querySelectorAll('.article')
-  console.log('articles', articles)
   ctx.value = gsap.context(() => {
     ScrollTrigger.create({
       trigger: '.cover',
@@ -42,7 +40,7 @@ onMounted(async () => {
     }).to(".cover", {
       opacity: 0,
       scale: 8,
-      // translateY: 400
+      translateX: 240
     })
   }, main.value);
 });
