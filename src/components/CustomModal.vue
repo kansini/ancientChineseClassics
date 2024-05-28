@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import ClickOutside from "@/components/kits/ClickOutside.vue";
+import MenuItem from "@/components/menu/MenuItem.vue";
+
 const emit = defineEmits(['update:visible']);
 const handleClose = () => {
   emit('update:visible', false);

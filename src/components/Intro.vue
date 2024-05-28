@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {ref} from "vue";
 import {getBooksData} from "@/api/getBooksData";
+import CustomModal from "@/components/CustomModal.vue";
 
 interface IIntro {
   name?: string

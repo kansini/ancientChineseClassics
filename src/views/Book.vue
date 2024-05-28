@@ -6,6 +6,14 @@ import {useWindowScroll} from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {useBookName} from "@/stores/bookName";
 import {smoothScrollTo} from "@/utils/smoothScroll";
+import BackToTop from "@/components/kits/BackToTop.vue";
+import CustomCursor from "@/components/kits/CustomCursor.vue";
+import TopMenu from "@/components/menu/TopMenu.vue";
+import Cover from "@/components/Cover.vue";
+import Mouse from "@/components/kits/Mouse.vue";
+import Detail from "@/components/Detail.vue";
+import Contents from "@/components/Contents.vue";
+import Intro from "@/components/Intro.vue";
 gsap.registerPlugin(ScrollTrigger);
 
 const router = useRouter()
@@ -14,7 +22,7 @@ const showIntro = ref<boolean>(false)
 const showContents = ref<boolean>(false)
 const {x, y} = useWindowScroll()
 const handleClickNav = async (id: string) => {
-  await smoothScrollTo(id)
+  smoothScrollTo(id)
   showContents.value = false
 }
 const main = ref();

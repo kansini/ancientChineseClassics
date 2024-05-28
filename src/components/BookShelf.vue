@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import {ref, reactive, onMounted} from "vue";
 import {useRouter} from "vue-router"
-import {getBooksData} from "../api/getBooksData"
+import {getBooksData} from "@/api/getBooksData"
 import {useBookName} from '@/stores/bookName';
-import type {IContents} from "../interface"
+import type {IContents} from "@/interface"
 import {setLS, getLS} from "@/utils/ls";
 
 const motionOption = reactive({
@@ -38,13 +38,13 @@ const getData = () => {
     booksData.value = getLS('contents')
   } else {
     getBooksData('contents').then(async (res) => {
-      await setLS('contents', res.data)
+      setLS('contents', res.data)
       booksData.value = res.data
     })
   }
 }
 onMounted(async () => {
-  await getData()
+  getData()
 })
 
 // const shelfData = getLS('contents') || booksData

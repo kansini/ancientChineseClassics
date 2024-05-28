@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ref, reactive, onMounted} from "vue";
+import BookShelf from "@/components/BookShelf.vue";
+import CustomCursor from "@/components/kits/CustomCursor.vue";
 
 const motionOption = reactive({
   initial: {
@@ -31,7 +33,6 @@ const titleMotionOption = reactive({
   }
 })
 
-const loaded = ref(false)
 const cursorSize = ref('')
 const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
 const handleMouseEnter = (text: string) => {

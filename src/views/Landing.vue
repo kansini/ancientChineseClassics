@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import {useRouter} from 'vue-router';
 import {ref} from 'vue';
-import {getBooksData} from "../api/getBooksData";
-import type {IContents} from "../interface";
+import {getBooksData} from "@/api/getBooksData";
+import type {IContents} from "@/interface";
 
 const $router = useRouter()
 const bookNames = ref<string[]>([])
@@ -18,8 +18,8 @@ getBooksData('contents').then((res) => {
   <loading @enter="$router.push('home')"/>
   <div class="img-preload">
     <template v-for="name in bookNames">
-      <img :src="`./assets/bookTitle/title_${name}.svg`">
-      <img :src="`./assets/bookTitle/illus_${name}.svg`">
+      <img :src="`./assets/bookTitle/title_${name}.svg`" alt="">
+      <img :src="`./assets/bookTitle/illus_${name}.svg`" alt="">
     </template>
   </div>
 </template>

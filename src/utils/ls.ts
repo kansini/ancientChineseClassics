@@ -7,7 +7,6 @@ export const setLS = (name: string, data: any) => {
 // 获取数据
 export const getLS = (name: string) => {
     const LS = localStorage.getItem(name)
-    const data = !!LS ? JSON.parse(LS) : null
-    return data
+    return !!LS ? JSON.parse(LS) : null
 }
 

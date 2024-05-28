@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue";
+import {ref, onMounted, nextTick} from "vue";
 import {getBooksData} from "@/api/getBooksData";
 import {PINYIN} from "@/enum/pinyin";
 import {setLS, getLS} from "@/utils/ls";
@@ -36,7 +36,8 @@ const getData = () => {
     booksData.value = getLS(bookName)
   } else {
     getBooksData(props.name).then(async (res) => {
-      await setLS(bookName, res.data)
+      await nextTick()
+      setLS(bookName, res.data)
       booksData.value = res.data
     })
   }
@@ -45,7 +46,8 @@ const getId = (index: number) => {
   return `${bookName}${index}`
 }
 onMounted(async () => {
-  await getData()
+  await nextTick()
+  getData()
 })
 
 </script>
@@ -69,7 +71,7 @@ onMounted(async () => {
 </template>
 <style lang="scss" scoped>
 .article {
-  font-family: "carved";
+  font-family: "carved",serif;
   padding: 8px 16px;
   display: flex;
   flex-direction: row-reverse;

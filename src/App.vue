@@ -7,7 +7,7 @@
 
 <style lang="scss">
 #app {
-  font-family: "carved";
+  font-family: "carved",serif;
   background: $acc-main-bg;
   background-size: 100%;
   overflow-x: hidden;

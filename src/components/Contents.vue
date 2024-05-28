@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref, computed} from "vue";
+import {ref} from "vue";
 import {getBooksData} from "@/api/getBooksData";
 import {NUM} from "@/enum/num";
 import {PINYIN} from "@/enum/pinyin";
@@ -34,8 +34,7 @@ const getVolNum = (index: number) => {
   let numCnArr = numArr.map((item: string) => {
     return NUM[parseInt(item)]
   })
-  const volNum = numCnArr.join('')
-  return volNum
+  return numCnArr.join('')
 }
 const getId = (index: number) => {
   const pinyin: Record<string, string> = PINYIN
