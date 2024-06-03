@@ -34,7 +34,7 @@ withDefaults(defineProps<IBookInfo>(), {
   justify-content: space-evenly;
   transition: all ease .6s;
   mix-blend-mode: color-burn;
-  font-family: "carved";
+  font-family: "carved",serif;
   overflow: hidden;
 
   .book-spine-title {
@@ -69,7 +69,7 @@ withDefaults(defineProps<IBookInfo>(), {
     cursor: pointer;
     mix-blend-mode: difference;
     border-radius: 8px 12px 12px 8px;
-    //box-shadow: -1px 1px 0 1px rgba(255, 255, 255, 1), -2px 2px 0 1px rgba(0, 0, 0, 1), -3px 3px 0 1px rgba(255, 255, 255, 1), -4px 4px 0 1px rgba(255, 255, 255, 1), -5px 5px 0 1px rgba(0, 0, 0, 1), -6px 6px 0 1px rgba(255, 255, 255, 1), -7px 7px 0 1px rgba(255, 255, 255, 1), -8px 8px 0 1px rgba(0, 0, 0, 1), -9px 9px 0 1px rgba(255, 255, 255, 1);
+    box-shadow: -1px 1px 0 1px rgba(255, 255, 255, 1), -2px 2px 0 1px rgba(0, 0, 0, 1), -3px 3px 0 1px rgba(255, 255, 255, 1), -4px 4px 0 1px rgba(255, 255, 255, 1), -5px 5px 0 1px rgba(0, 0, 0, 1), -6px 6px 0 1px rgba(255, 255, 255, 1), -7px 7px 0 1px rgba(255, 255, 255, 1), -8px 8px 0 1px rgba(0, 0, 0, 1), -9px 9px 0 1px rgba(255, 255, 255, 1);
     &::before {
       content: '';
       position: absolute;
