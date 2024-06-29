@@ -5,8 +5,8 @@
 
 <script lang="ts" setup>
 import lottie from "lottie-web"
-import {uuid} from "../../utils/uuid"
-import {ref, onMounted} from "vue"
+import {uuid} from "@/utils/uuid"
+import {onMounted} from "vue"
 
 const props = defineProps({
   name: {

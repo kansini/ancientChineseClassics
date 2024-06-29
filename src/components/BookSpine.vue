@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {reactive} from "vue";
 
 interface IBookInfo {
   title: string
@@ -7,17 +6,22 @@ interface IBookInfo {
   dynasty: string
 }
 
-withDefaults(defineProps<IBookInfo>(), {
-  title: "天工开物",
-  author: "宋应星",
-  dynasty: "明"
+defineProps({
+  data: {
+    type: Object as () => IBookInfo,
+    default: () => ({
+      title: '',
+      author: '',
+      dynasty: ''
+    })
+  }
 })
 </script>
 <template>
   <div class="book-spine">
     <div class="book-spine-title">
-      <div class="book-spine-name">{{ title }}</div>
-      <div class="book-spine-info">{{ dynasty }}·{{ author }}</div>
+      <div class="book-spine-name">{{ data.title }}</div>
+      <div class="book-spine-info">{{ data.dynasty }}·{{ data.author }}</div>
     </div>
   </div>
 </template>

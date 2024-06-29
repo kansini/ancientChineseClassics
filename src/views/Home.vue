@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import {ref, reactive, onMounted} from "vue";
+import { ref, reactive } from "vue";
 import BookShelf from "@/components/BookShelf.vue";
 import CustomCursor from "@/components/kits/CustomCursor.vue";
 
-const motionOption = reactive({
-  initial: {
-    opacity: 0,
-    y: 240,
-    scale: .5
-  },
-  enter: {
-    opacity: 1,
-    y: 0,
-    scale: 1
-  }
-})
+// const motionOption = reactive({
+//   initial: {
+//     opacity: 0,
+//     y: 240,
+//     scale: .5
+//   },
+//   enter: {
+//     opacity: 1,
+//     y: 0,
+//     scale: 1
+//   }
+// })
 const titleMotionOption = reactive({
   initial: {
     opacity: 0,
@@ -34,6 +34,7 @@ const titleMotionOption = reactive({
 })
 
 const cursorSize = ref('')
+const cursorColor = ref('')
 const cursorText = ref('中国典籍·The Ancient Chinese Classics·')
 const handleMouseEnter = (text: string) => {
   cursorSize.value = "large"
@@ -43,6 +44,7 @@ const handleMouseEnter = (text: string) => {
 
 <template>
   <custom-cursor
+      :color="cursorColor"
       :size="cursorSize"
       :text="cursorText"
   />

@@ -2,9 +2,10 @@
 import {ref, reactive, onMounted} from "vue";
 import {useRouter} from "vue-router"
 import {getBooksData} from "@/api/getBooksData"
-import {useBookName} from '@/stores/bookName';
+import {useBookName} from "@/stores/bookName";
 import type {IContents} from "@/interface"
 import {setLS, getLS} from "@/utils/ls";
+import BookSpine from "@/components/BookSpine.vue"
 
 const motionOption = reactive({
   initial: {
@@ -22,23 +23,23 @@ const motionOption = reactive({
 const booksData = ref<IContents[]>([])
 const router = useRouter()
 
-const emit = defineEmits(['mouseenter', 'mouseleave'])
+const emit = defineEmits(["mouseenter", "mouseleave"])
 const handleMouseEnter = (title: string) => {
-  emit('mouseenter', title)
+  emit("mouseenter", title)
 }
 const handleMouseLeave = () => {
-  emit('mouseleave')
+  emit("mouseleave")
 }
 const handleClickBook = (bookName: string) => {
-  router.push('book')
+  router.push("book")
   useBookName().bookName = bookName
 }
 const getData = () => {
-  if (getLS('contents')) {
-    booksData.value = getLS('contents')
+  if (getLS("contents")) {
+    booksData.value = getLS("contents")
   } else {
-    getBooksData('contents').then(async (res) => {
-      setLS('contents', res.data)
+    getBooksData("contents").then(async (res) => {
+      setLS("contents", res.data)
       booksData.value = res.data
     })
   }
@@ -56,10 +57,8 @@ onMounted(async () => {
           v-motion
           :initial="motionOption.initial"
           :enter="motionOption.enter"
-          :delay="80 * index"
-          :title="book.title"
-          :author="book.author"
-          :dynasty="book.dynasty"
+          :delay="100 + 200 * index"
+          :data="book"
           @click="handleClickBook(book.title)"
           @mouseenter="handleMouseEnter(book.title)"
           @mouseleave="handleMouseLeave"
