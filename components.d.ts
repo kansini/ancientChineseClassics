@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AccButton: typeof import('./src/components/kits/AccButton.vue')['default']
     Ani: typeof import('./src/components/kits/Ani.vue')['default']
+    AppDownload: typeof import('./src/components/AppDownload.vue')['default']
     BackToTop: typeof import('./src/components/kits/BackToTop.vue')['default']
     BookShelf: typeof import('./src/components/BookShelf.vue')['default']
     BookSpine: typeof import('./src/components/BookSpine.vue')['default']
@@ -27,6 +28,7 @@ declare module '@vue/runtime-core' {
     MenuItem: typeof import('./src/components/menu/MenuItem.vue')['default']
     Mouse: typeof import('./src/components/kits/Mouse.vue')['default']
     ProgressBar: typeof import('./src/components/kits/ProgressBar.vue')['default']
+    ReaderDrawer: typeof import('./src/components/reader/ReaderDrawer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TopMenu: typeof import('./src/components/menu/TopMenu.vue')['default']

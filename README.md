@@ -1,40 +1,39 @@
-# vite-template
+# 中国典籍
 
-This template should help get you started developing with Vue 3 in Vite.
+以书架、古籍纸面和竖排正文为基础的 Vue 3 阅读网站。
 
-## Recommended IDE Setup
+## 阅读功能
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- **固定链接**：`/book/caigentan` 打开书籍首页，`/book/caigentan/2#p-3-o-8` 定位到第二篇、第三段、段内偏移 8。章节和段落在链接中从 1 开始编号。
+- **继续阅读**：自动保存当前书籍、章节、段落及段内文字位置；书架展示最近阅读的三本书。字号、列距和窗口宽度变化时按文字位置恢复。
+- **阅读设置**：横竖排、18～32px 字号、竖排列距、纸本／素白／夜读主题和分割线开关。
+- **书内搜索**：原文字面匹配，支持上下文、正文高亮和点击定位；按段落计数，最多展示前 100 条结果。当前不做简繁转换或跨书搜索。
+- **书笺**：底部“加书签”保存当前段落；选中正文后“保存摘录”；书笺面板支持批注、回到原文、复制文字与出处、移除记录。
 
-## Type Support for `.vue` Imports in TS
+设置、进度、书签和摘录保存在当前浏览器的 `acc-reader-v1` 本地存储中，无需登录，不会在不同设备间自动同步。书籍缓存不可用时会重新请求原文。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## 开发与验证
 
 ```sh
-yarn
+npm install
+npm run dev
+npm test
+npx tsc --noEmit
+npm run build
 ```
 
-### Compile and Hot-Reload for Development
+`npm test` 验证书籍链接、段落锚点、搜索定位、结果上限和字面高亮。构建输出位于 `dist/`。
 
-```sh
-yarn dev
+## 部署
+
+使用 HTML5 History 路由。生产服务器需要将不存在的页面路径（例如 `/book/caigentan/2`）回退到 `index.html`，同时正常提供 `/assets/` 和 `/books/` 静态资源，否则直接访问或刷新章节链接会返回服务器的 404。
+
+Nginx 的站点配置可以采用：
+
+```nginx
+location / {
+    try_files $uri $uri/ /index.html;
+}
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-yarn build
-```
+`npm run preview` 可检查本地生产构建和章节链接。

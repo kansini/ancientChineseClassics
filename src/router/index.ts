@@ -1,34 +1,38 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import type {RouteRecordRaw} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import Landing from '../views/Landing.vue'
+import { bookSlug } from '@/utils/reader'
+import { useBookName } from '@/stores/bookName'
 
 const routes: RouteRecordRaw[] = [
-    {
-        path: '/',
-        name: 'landing',
-        component: Landing
-    },
-    {
-        path: '/home',
-        name: 'home',
-        component: () => import('../views/Home.vue')
-    },
-    {
-        path: '/book',
-        name: 'book',
-        component: () => import('../views/Book.vue')
-    },
-    {
-        path: '/scroll',
-        name: 'scroll',
-        component: () => import('../views/ScrollDemo.vue')
-    }
-
+  {
+    path: '/',
+    name: 'landing',
+    component: Landing,
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/Home.vue'),
+  },
+  {
+    path: '/book',
+    redirect: () => `/book/${bookSlug(useBookName().bookName) || 'mengxibitan'}`,
+  },
+  {
+    path: '/book/:slug/:chapter?',
+    name: 'book',
+    component: () => import('../views/Book.vue'),
+  },
+  {
+    path: '/scroll',
+    name: 'scroll',
+    component: () => import('../views/ScrollDemo.vue'),
+  },
 ]
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: routes
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: routes,
 })
-
 
 export default router

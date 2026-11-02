@@ -1,62 +1,70 @@
 <script setup>
-import {onMounted} from 'vue';
-import gsap from 'gsap';
-import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
-import CustomCursor from "@/components/kits/CustomCursor.vue";
-import TopMenu from "@/components/menu/TopMenu.vue";
-import Cover from "@/components/Cover.vue";
-import Detail from "@/components/Detail.vue";
+import { onMounted, nextTick, ref } from 'vue'
+import { loadBook } from '@/utils/loadBook'
+import { defaultSettings } from '@/utils/reader'
+import gsap from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import CustomCursor from '@/components/kits/CustomCursor.vue'
+import TopMenu from '@/components/menu/TopMenu.vue'
+import Cover from '@/components/Cover.vue'
+import Detail from '@/components/Detail.vue'
 
-gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
-onMounted(() => {
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
+const articles = ref([])
+onMounted(async () => {
+  const data = await loadBook('天工开物')
+  articles.value = data.articles
+  await nextTick()
   const horizontalSections = gsap.utils.toArray('section.horizontal')
 
   horizontalSections.forEach((sec, i) => {
+    let thisPinWrap = sec.querySelector('.pin-wrap')
+    let thisAnimWrap = thisPinWrap.querySelector('.animation-wrap')
 
-    let thisPinWrap = sec.querySelector('.pin-wrap');
-    let thisAnimWrap = thisPinWrap.querySelector('.animation-wrap');
+    let getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth)
 
-    let getToValue = () => -(thisAnimWrap.scrollWidth - window.innerWidth);
-
-    gsap.fromTo(thisAnimWrap, {
-      x: () => thisAnimWrap.classList.contains('to-right') ? 0 : getToValue()
-    }, {
-      x: () => thisAnimWrap.classList.contains('to-right') ? getToValue() : 0,
-      ease: "none",
-      scrollTrigger: {
-        trigger: sec,
-        start: "top top",
-        end: () => "+=" + (thisAnimWrap.scrollWidth - window.innerWidth),
-        pin: thisPinWrap,
-        invalidateOnRefresh: true,
-        //anticipatePin: 1,
-        scrub: true,
-        //markers: true,
-      }
-    });
-
-  });
+    gsap.fromTo(
+      thisAnimWrap,
+      {
+        x: () => (thisAnimWrap.classList.contains('to-right') ? 0 : getToValue()),
+      },
+      {
+        x: () => (thisAnimWrap.classList.contains('to-right') ? getToValue() : 0),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sec,
+          start: 'top top',
+          end: () => '+=' + (thisAnimWrap.scrollWidth - window.innerWidth),
+          pin: thisPinWrap,
+          invalidateOnRefresh: true,
+          //anticipatePin: 1,
+          scrub: true,
+          //markers: true,
+        },
+      },
+    )
+  })
 })
-
 </script>
 <template>
-  <custom-cursor/>
-  <top-menu/>
+  <custom-cursor />
+  <top-menu />
   <section>
-    <cover/>
+    <cover name="天工开物" />
   </section>
   <section class="horizontal">
     <div class="pin-wrap">
       <div class="animation-wrap to-left">
-        <detail name="天工开物"/>
-
+        <detail name="天工开物" :articles="articles" :settings="defaultSettings" />
       </div>
     </div>
   </section>
 </template>
 <style lang="scss">
-html, body, section.horizontal {
+html,
+body,
+section.horizontal {
   overflow-x: hidden;
 }
 
@@ -80,14 +88,12 @@ section.horizontal .animation-wrap {
   height: 100vh;
 }
 
-
 section.horizontal .item {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-
 
 section.horizontal .animation-wrap.to-right {
   counter-reset: item;
@@ -97,6 +103,4 @@ section.horizontal .animation-wrap.to-right {
 section.horizontal .animation-wrap.to-left {
   float: right;
 }
-
-
 </style>

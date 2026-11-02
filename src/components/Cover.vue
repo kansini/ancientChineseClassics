@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import {reactive, ref} from "vue";
-import {useBookName} from "@/stores/bookName"
+import { computed, reactive } from 'vue'
 
-const bookName = useBookName().bookName
-const baseUrl = ref('./assets/bookTitle/')
-const bookTitle = ref<string>(`${baseUrl.value}title_${bookName}.svg`)
-const bookIllus = ref<string>(`${baseUrl.value}illus_${bookName}.svg`)
+const props = defineProps<{ name: string }>()
+const baseUrl = `${import.meta.env.BASE_URL}assets/bookTitle/`
+const bookTitle = computed(() => `${baseUrl}title_${props.name}.svg`)
+const bookIllus = computed(() => `${baseUrl}illus_${props.name}.svg`)
 const motionOption = reactive({
   initial: {
     opacity: 0,
@@ -17,32 +16,27 @@ const motionOption = reactive({
     scale: 1,
     filter: 'blur(0px)',
     transition: {
-      duration: 200
-    }
-  }
+      duration: 200,
+    },
+  },
 })
 </script>
 <template>
   <div class="cover">
-    <div class="title"
-         v-motion
-         :initial="motionOption.initial"
-         :enter="motionOption.enter"
-    >
-      <img :src="bookTitle">
+    <div class="title" v-motion :initial="motionOption.initial" :enter="motionOption.enter">
+      <img :src="bookTitle" :alt="name" />
     </div>
     <div
-        class="illustration"
-        v-motion
-        :initial="motionOption.initial"
-        :enter="motionOption.enter"
-        :delay="200"
+      class="illustration"
+      v-motion
+      :initial="motionOption.initial"
+      :enter="motionOption.enter"
+      :delay="200"
     >
-      <img :src="bookIllus">
+      <img :src="bookIllus" alt="" aria-hidden="true" />
     </div>
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .cover {

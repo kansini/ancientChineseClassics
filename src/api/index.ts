@@ -1,9 +1,9 @@
-import axios from "axios"
+import axios from 'axios'
 
 const $http = axios.create({
-    baseURL: './',
-    timeout: 5000,
-    // headers: {'Authorization': 'none'}
+  baseURL: import.meta.env.BASE_URL,
+  timeout: 5000,
+  // headers: {'Authorization': 'none'}
 })
 
 export default $http

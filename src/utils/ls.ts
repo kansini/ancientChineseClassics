@@ -1,12 +1,14 @@
-export const setLS = (name: string, data: any) => {
+export const setLS = (name: string, data: unknown) => {
+  try {
     localStorage.setItem(name, JSON.stringify(data))
+  } catch {
+    /* Cache is optional. */
+  }
 }
-// 存储数据
-
-
-// 获取数据
 export const getLS = (name: string) => {
-    const LS = localStorage.getItem(name)
-    return !!LS ? JSON.parse(LS) : null
+  try {
+    return JSON.parse(localStorage.getItem(name) || 'null')
+  } catch {
+    return null
+  }
 }
-
