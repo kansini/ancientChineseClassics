@@ -3,6 +3,10 @@ import {onMounted} from 'vue';
 import gsap from 'gsap';
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import CustomCursor from "@/components/kits/CustomCursor.vue";
+import TopMenu from "@/components/menu/TopMenu.vue";
+import Cover from "@/components/Cover.vue";
+import Detail from "@/components/Detail.vue";
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 onMounted(() => {

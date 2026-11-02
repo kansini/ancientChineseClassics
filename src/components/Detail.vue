@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {ref, onMounted, nextTick} from "vue";
+import {ref, onMounted, nextTick, watchPostEffect} from "vue";
+import {useEventListener} from "@vueuse/core";
 import {getBooksData} from "@/api/getBooksData";
 import {PINYIN} from "@/enum/pinyin";
 import {setLS, getLS} from "@/utils/ls";
@@ -45,9 +46,36 @@ const getData = () => {
 const getId = (index: number) => {
   return `${bookName}${index}`
 }
+
+const volumes = ref<HTMLElement[]>([])
+const layoutVolume = (volume: HTMLElement) => {
+  const content = volume.querySelector<HTMLElement>('.vol-content')
+  if (!content) return
+
+  const columnWidth = parseFloat(getComputedStyle(volume).getPropertyValue('--column-width'))
+  // Keep every row on the same right-aligned grid, including fractional viewport widths.
+  const columns = Math.max(1, Math.floor(volume.clientWidth / columnWidth))
+  content.style.width = `${columns * columnWidth}px`
+  // In vertical writing mode, overflow multicolumn boxes continue below the first row.
+  // Reserve their full height so later articles cannot overlap them.
+  volume.style.height = `${content.scrollHeight}px`
+}
+const layoutVolumes = () => volumes.value.forEach(layoutVolume)
+
+watchPostEffect(onCleanup => {
+  const observer = new ResizeObserver(entries => {
+    entries.forEach(entry => layoutVolume(entry.target as HTMLElement))
+  })
+  volumes.value.forEach(volume => observer.observe(volume))
+  onCleanup(() => observer.disconnect())
+})
+useEventListener(document.fonts, 'loadingdone', layoutVolumes)
+
 onMounted(async () => {
   await nextTick()
   getData()
+  await document.fonts.ready
+  layoutVolumes()
 })
 
 </script>
@@ -55,6 +83,7 @@ onMounted(async () => {
 <template>
   <div
       v-for="(article,index) in booksData.articles"
+      :key="getId(index)"
       class="article item"
       :id="getId(index)"
   >
@@ -62,15 +91,19 @@ onMounted(async () => {
       <div class="title-item">{{ name }}</div>
       <div class="title-item">{{ article.title }}</div>
     </div>
-    <div class="vol">
-      <div class="graph" v-for="p in article.content">
-        {{ p }}
+    <div class="vol" ref="volumes">
+      <div class="vol-content">
+        <p class="graph" v-for="(p, paragraphIndex) in article.content" :key="paragraphIndex">
+          {{ p }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
 .article {
+  --column-width: 64px;
+  --row-height: 480px;
   font-family: "carved",serif;
   padding: 8px 16px;
   display: flex;
@@ -82,7 +115,8 @@ onMounted(async () => {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    height: 480px;
+    flex: 0 0 64px;
+    height: var(--row-height);
     background: #73000e;
     color: #fff;
     font-size: 24px;
@@ -112,18 +146,29 @@ onMounted(async () => {
   }
 
   .vol {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
+    flex: 1;
+    min-width: 0;
+    height: var(--row-height);
     background-image: linear-gradient(to right, rgba(0, 0, 0, .4) 1px, transparent 1px);
-    background-size: 48px;
+    background-size: var(--column-width) 1px;
+    background-position: right top;
 
-    .graph {
+    .vol-content {
+      margin-left: auto;
       font-size: 20px;
       writing-mode: vertical-rl;
-      line-height: 48px;
-      height: 480px;
-      margin-bottom: 16px;
+      line-height: var(--column-width);
+      height: var(--row-height);
+      column-width: var(--row-height);
+      column-gap: 16px;
+      column-fill: auto;
+      overflow-wrap: anywhere;
+    }
+
+    .graph {
+      margin: 0;
+      orphans: 1;
+      widows: 1;
     }
   }
 

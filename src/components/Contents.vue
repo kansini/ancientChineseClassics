@@ -48,24 +48,29 @@ const getId = (index: number) => {
         <div class="contents-title-inner">{{ name }}</div>
       </div>
       <div class="contents-item-container">
-        <template v-for="(item,index) in contentsData">
+        <div class="contents-items">
           <div
+              v-for="(item,index) in contentsData"
+              :key="getId(index)"
               class="contents-item"
               :class="{'is-active':current === getId(index)}"
               @click="handleClick(index)"
           >
             <div class="contents-item-num">{{ getVolNum(index) }}</div>
-            {{ item.title }}
+            <div class="contents-item-title">{{ item.title }}</div>
           </div>
-        </template>
+        </div>
       </div>
     </div>
   </custom-modal>
 </template>
 <style lang="scss">
 .contents-modal {
+  --contents-column-width: 48px;
+
   .acc-modal-container {
-    padding: 16px 64px;
+    padding: 16px clamp(16px, 4vw, 64px);
+    height: 100dvh;
   }
 
   .contents-container {
@@ -78,6 +83,7 @@ const getId = (index: number) => {
     border-left: 3px solid $acc-red;
 
     .contents-title {
+      flex: 0 0 57px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -112,25 +118,37 @@ const getId = (index: number) => {
     }
 
     .contents-item-container {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row-reverse;
-      max-height: calc(100vh - 16px);
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
       overflow-y: auto;
       background-image: linear-gradient(to right, $acc-gold 1px, transparent 1px);
-      background-size: 48px 1px;
+      background-size: var(--contents-column-width) 1px;
+      background-position: right top;
+
+      // Let the grid grow with its titles; only the outer container scrolls.
+      .contents-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, var(--contents-column-width));
+        grid-auto-rows: minmax(180px, max-content);
+        justify-content: start;
+        align-content: start;
+        direction: rtl;
+      }
 
       .contents-item {
-        display: flex;
-        align-items: center;
+        direction: ltr;
         font-size: 18px;
-        writing-mode: vertical-rl;
         padding: 16px 0;
-        width: 48px;
+        width: var(--contents-column-width);
+        height: max-content;
+        min-height: 180px;
         transition: all ease-in .3s;
         cursor: pointer;
 
         .contents-item-num {
+          writing-mode: vertical-rl;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -139,9 +157,18 @@ const getId = (index: number) => {
           border-radius: 16px;
           font-size: 14px;
           padding: 8px 4px;
-          margin-bottom: 8px;
+          margin: 0 auto 8px;
+          width: max-content;
           height: 72px;
           transition: all ease-in .3s;
+        }
+
+        .contents-item-title {
+          writing-mode: vertical-rl;
+          width: max-content;
+          height: max-content;
+          margin: 0 auto;
+          white-space: nowrap;
         }
 
         &:hover {
