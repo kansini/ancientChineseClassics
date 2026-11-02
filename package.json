@@ -12,6 +12,7 @@
     "@vueuse/core": "10.9.0",
     "@vueuse/motion": "^2.2.3",
     "axios": "^1.7.2",
+    "defu": "6.1.4",
     "gsap": "3.12.5",
     "lottie-web": "5.12.2",
     "pinia": "2.1.7",
