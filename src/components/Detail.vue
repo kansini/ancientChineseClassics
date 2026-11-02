@@ -119,7 +119,7 @@ onMounted(async () => {
     height: var(--row-height);
     background: #73000e;
     color: #fff;
-    font-size: 24px;
+    font-size: 26px;
     text-align: center;
     mix-blend-mode: color-burn;
 
@@ -155,7 +155,7 @@ onMounted(async () => {
 
     .vol-content {
       margin-left: auto;
-      font-size: 20px;
+      font-size: 22px;
       writing-mode: vertical-rl;
       line-height: var(--column-width);
       height: var(--row-height);
