@@ -185,7 +185,7 @@ defineExpose({ relayout })
   }
   &.horizontal {
     display: block;
-    max-width: 900px;
+    max-width: 1260px;
     margin: 0 auto;
     padding: 20px 36px 60px;
     .title {
