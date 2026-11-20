@@ -1,45 +1,21 @@
 <script lang="ts" setup>
-import {ref, reactive, onMounted} from "vue";
+import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+import { preloadImage } from '@/utils/preloadImage'
+import homeBackground from '@/assets/img/main_bg.jpg'
 
+const loading = ref(true)
+const progress = ref(0)
+let active = true
 
-const loading = ref<boolean>(true)
-const progress = ref<number>(0)
-// Load all images and custom fonts in the project and combine their progress
-const loadResources = async () => {
-  const images = import.meta.globEager('@/assets/img/*.{svg,jpg}');
-  const totalImages = Object.keys(images).length;
-  let loadedResources = 0;
-  const totalResources = totalImages + 1; // Add 1 for the custom font
-
-  for (const imageKey in images) {
-    const image = new Image();
-    image.src = (images[imageKey] as any).default;
-    image.onload = () => {
-      loadedResources++;
-      progress.value = Math.floor((loadedResources / totalResources) * 100);
-    };
-  }
-
-  // Preload custom fonts
-  const font = new FontFace('carved', 'url(./assets/fonts/carved.woff)', {display: 'swap'});
-  font.loaded.then(() => {
-    loadedResources++;
-    progress.value = Math.floor((loadedResources / totalResources) * 100);
-    loading.value = false
-  });
-  await font.load();
-  document.fonts.add(font);
-
-  // 将预加载的文件写入缓存
-  // caches.open('my-cache').then((cache) => {
-  //   cache.addAll(Array.from(Object.keys(images), key => (images[key] as any).default));
-  //   cache.add('./assets/fonts/carved.woff');
-  // });
-};
-
-onMounted(() => {
-  loadResources();
-});
+onMounted(async () => {
+  // Fonts use CSS font-display: swap; they are never a navigation prerequisite.
+  progress.value = 20
+  await preloadImage(homeBackground)
+  if (!active) return
+  progress.value = 100
+  loading.value = false
+})
+onBeforeUnmount(() => { active = false })
 const emit = defineEmits(['enter'])
 const handleEnter = () => {
   emit('enter')
