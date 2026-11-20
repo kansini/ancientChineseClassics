@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import Landing from '../views/Landing.vue'
+import { loadHomePage } from '@/utils/loadHomePage'
 import { bookSlug } from '@/utils/reader'
 import { useBookName } from '@/stores/bookName'
 
@@ -13,7 +14,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/Home.vue'),
+    component: loadHomePage,
   },
   {
     path: '/book',

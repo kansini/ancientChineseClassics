@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { preloadImage } from '@/utils/preloadImage'
+import { loadHomePage } from '@/utils/loadHomePage'
 import homeBackground from '@/assets/img/main_bg.jpg'
 
+const props = defineProps<{ entering?: boolean; entryError?: string }>()
 const loading = ref(true)
 const progress = ref(0)
 let active = true
 
 onMounted(async () => {
   // Fonts use CSS font-display: swap; they are never a navigation prerequisite.
+  void loadHomePage().catch(() => { /* A failed warmup must not block the entry button. */ })
   progress.value = 20
   await preloadImage(homeBackground)
   if (!active) return
@@ -18,7 +21,7 @@ onMounted(async () => {
 onBeforeUnmount(() => { active = false })
 const emit = defineEmits(['enter'])
 const handleEnter = () => {
-  emit('enter')
+  if (!props.entering) emit('enter')
 }
 const motionOption = reactive({
   initial: {
@@ -47,14 +50,25 @@ const motionOption = reactive({
             v-motion
             :initial="motionOption.initial"
             :enter="motionOption.enter"
+            :disabled="entering"
+            :aria-busy="entering || undefined"
+            :text="entering ? ['正在进入', '正在进入'] : ['开卷', '有益']"
             @click="handleEnter"
         />
       </progress-bar>
+      <p v-if="entryError" class="entry-error" role="alert">{{ entryError }}</p>
     </div>
   </transition>
 </template>
 
 <style lang="scss" scoped>
+.entry-error {
+  margin: 16px 24px 0;
+  color: #fff;
+  font: 14px/1.5 system-ui, sans-serif;
+  text-align: center;
+}
+.loading-container :deep(.tb-btn:disabled) { cursor: wait; font-size: 14px; padding: 8px; }
 .loading-container {
   display: flex;
   flex-direction: column;
